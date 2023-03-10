@@ -1,35 +1,50 @@
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.UnityEditor;
+using TownBuilder.MonoComponents;
+using TownBuilder.Setup;
+using TownBuilder.Systems;
+using TownBuilder.Systems.Camera;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace TownBuilder.Startup
 {
     internal sealed class EcsStartup : MonoBehaviour
     {
+        [SerializeField] private PrefabSetup _prefabSetup;
+        [SerializeField] private PrefabFactory _prefabFactory;
+
         private EcsWorld _world;
         private IEcsSystems _systems;
 
-        private void Start()
+        private InputActions _inputActions;
+
+        private void Awake()
         {
             _world = new EcsWorld();
+
+            _inputActions = new InputActions();
+
             _systems = new EcsSystems(_world);
             _systems
-                // register your systems here, for example:
-                // .Add (new TestSystem1 ())
-                // .Add (new TestSystem2 ())
+                .Add(new PrefabSpawnSystem())
+                .Add(new CameraSpawnSystem())
+                .Add(new CameraInputSystem())
+                .Add(new CameraMovementSystem())
+                .Add(new CameraRotationSystem())
 
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
 #endif
-                
-                .Init();
 
+                .Inject(_inputActions,
+                    _prefabSetup,
+                    _prefabFactory)
+                .Init();
         }
 
         private void Update()
         {
-            // process systems here.
             _systems?.Run();
         }
 
@@ -37,16 +52,10 @@ namespace TownBuilder.Startup
         {
             if (_systems != null)
             {
-                // list of custom worlds will be cleared
-                // during IEcsSystems.Destroy(). so, you
-                // need to save it here if you need.
                 _systems.Destroy();
                 _systems = null;
             }
 
-            // cleanup custom worlds here.
-
-            // cleanup default world.
             if (_world != null)
             {
                 _world.Destroy();
