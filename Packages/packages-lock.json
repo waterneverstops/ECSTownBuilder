@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "4622c76134cac0c280f5878be3d645005ab5a1fa"
     },
+    "com.leopotam.ecslite.di": {
+      "version": "https://github.com/Leopotam/ecslite-di.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7db3425156099e60f751a95bb344dee2c0692390"
+    },
     "com.leopotam.ecslite.extendedsystems": {
       "version": "https://github.com/Leopotam/ecslite-extendedsystems.git",
       "depth": 0,
