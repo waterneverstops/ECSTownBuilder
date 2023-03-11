@@ -3,6 +3,7 @@ using Leopotam.EcsLite.Di;
 using TownBuilder.Components.Grid;
 using TownBuilder.Context;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TownBuilder.Systems
 {

@@ -1,5 +1,6 @@
 using Leopotam.EcsLite;
 using TownBuilder.Components;
+using TownBuilder.Components.Input;
 using TownBuilder.Components.Links;
 using TownBuilder.Components.Tags;
 using UnityEngine;

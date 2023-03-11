@@ -1,6 +1,6 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using TownBuilder.Components;
+using TownBuilder.Components.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,9 +20,7 @@ namespace TownBuilder.Systems.Camera
         {
             _world = systems.GetWorld();
             _inputActions = _inputActionsInjection.Value;
-
-            _inputActions.Enable();
-
+            
             _rotationAction = _inputActions.CameraControl.CameraRotation;
             _movementAction = _inputActions.CameraControl.CameraMovement;
 
@@ -30,6 +28,14 @@ namespace TownBuilder.Systems.Camera
             _rotationAction.started += OnCameraRotationActionStarted;
             _movementAction.canceled += OnCameraMovementActionCanceled;
             _rotationAction.canceled += OnCameraRotationActionCanceled;
+        }
+
+        public void Destroy(IEcsSystems systems)
+        {
+            _movementAction.started -= OnCameraMovementActionStarted;
+            _rotationAction.started -= OnCameraRotationActionStarted;
+            _movementAction.canceled -= OnCameraMovementActionCanceled;
+            _rotationAction.canceled -= OnCameraRotationActionCanceled;
         }
 
         public void Run(IEcsSystems systems)
@@ -85,14 +91,6 @@ namespace TownBuilder.Systems.Camera
             var components = _world.GetPool<MoveCamera>();
 
             foreach (var entity in filter) components.Del(entity);
-        }
-
-        public void Destroy(IEcsSystems systems)
-        {
-            _movementAction.started -= OnCameraMovementActionStarted;
-            _rotationAction.started -= OnCameraRotationActionStarted;
-            _movementAction.canceled -= OnCameraMovementActionCanceled;
-            _rotationAction.canceled -= OnCameraRotationActionCanceled;
         }
     }
 }
