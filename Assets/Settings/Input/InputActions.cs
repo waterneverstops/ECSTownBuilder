@@ -136,6 +136,54 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""MouseControl"",
+            ""id"": ""51dfce00-9cc0-49a2-b28a-84f1f827ac5e"",
+            ""actions"": [
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""3ee7e57b-7b87-4aab-a4a3-f1d54ed5b8f4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MousePressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f42ca21-f1f8-48cc-90aa-92c7afdf0268"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""52cc01e5-a122-4ae0-9c8c-1ffb6e45c011"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4390605c-352f-448c-8a5c-a031fcf9e4e9"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -144,6 +192,10 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_CameraControl = asset.FindActionMap("CameraControl", throwIfNotFound: true);
         m_CameraControl_CameraRotation = m_CameraControl.FindAction("CameraRotation", throwIfNotFound: true);
         m_CameraControl_CameraMovement = m_CameraControl.FindAction("CameraMovement", throwIfNotFound: true);
+        // MouseControl
+        m_MouseControl = asset.FindActionMap("MouseControl", throwIfNotFound: true);
+        m_MouseControl_MousePosition = m_MouseControl.FindAction("MousePosition", throwIfNotFound: true);
+        m_MouseControl_MousePressed = m_MouseControl.FindAction("MousePressed", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,9 +292,55 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         }
     }
     public CameraControlActions @CameraControl => new CameraControlActions(this);
+
+    // MouseControl
+    private readonly InputActionMap m_MouseControl;
+    private IMouseControlActions m_MouseControlActionsCallbackInterface;
+    private readonly InputAction m_MouseControl_MousePosition;
+    private readonly InputAction m_MouseControl_MousePressed;
+    public struct MouseControlActions
+    {
+        private @InputActions m_Wrapper;
+        public MouseControlActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePosition => m_Wrapper.m_MouseControl_MousePosition;
+        public InputAction @MousePressed => m_Wrapper.m_MouseControl_MousePressed;
+        public InputActionMap Get() { return m_Wrapper.m_MouseControl; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MouseControlActions set) { return set.Get(); }
+        public void SetCallbacks(IMouseControlActions instance)
+        {
+            if (m_Wrapper.m_MouseControlActionsCallbackInterface != null)
+            {
+                @MousePosition.started -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnMousePosition;
+                @MousePosition.performed -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnMousePosition;
+                @MousePosition.canceled -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnMousePosition;
+                @MousePressed.started -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnMousePressed;
+                @MousePressed.performed -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnMousePressed;
+                @MousePressed.canceled -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnMousePressed;
+            }
+            m_Wrapper.m_MouseControlActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @MousePosition.started += instance.OnMousePosition;
+                @MousePosition.performed += instance.OnMousePosition;
+                @MousePosition.canceled += instance.OnMousePosition;
+                @MousePressed.started += instance.OnMousePressed;
+                @MousePressed.performed += instance.OnMousePressed;
+                @MousePressed.canceled += instance.OnMousePressed;
+            }
+        }
+    }
+    public MouseControlActions @MouseControl => new MouseControlActions(this);
     public interface ICameraControlActions
     {
         void OnCameraRotation(InputAction.CallbackContext context);
         void OnCameraMovement(InputAction.CallbackContext context);
+    }
+    public interface IMouseControlActions
+    {
+        void OnMousePosition(InputAction.CallbackContext context);
+        void OnMousePressed(InputAction.CallbackContext context);
     }
 }
