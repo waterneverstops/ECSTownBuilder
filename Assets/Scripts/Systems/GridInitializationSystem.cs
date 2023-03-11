@@ -22,7 +22,7 @@ namespace TownBuilder.Systems
             for (var y = 0; y < grid.Height; y++)
             {
                 var entity = world.NewEntity();
-                var pool = world.GetPool<CellComponent>();
+                var pool = world.GetPool<Cell>();
                 ref var cellComponent = ref pool.Add(entity);
                 cellComponent.Position = new Vector2Int(x, y);
 

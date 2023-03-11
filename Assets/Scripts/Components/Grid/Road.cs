@@ -1,4 +1,4 @@
 ﻿namespace TownBuilder.Components.Grid
 {
-    public struct RoadComponent { }
+    public struct Road { }
 }

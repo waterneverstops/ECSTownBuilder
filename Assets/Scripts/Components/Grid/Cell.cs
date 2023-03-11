@@ -2,7 +2,7 @@
 
 namespace TownBuilder.Components.Grid
 {
-    public struct CellComponent
+    public struct Cell
     {
         public Vector2Int Position;
     }
