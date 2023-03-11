@@ -1,6 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using TownBuilder.MonoComponents.MonoLinks.Base;
-using TownBuilder.Setup;
+using TownBuilder.SO;
 using UnityEngine;
 
 namespace TownBuilder.MonoComponents

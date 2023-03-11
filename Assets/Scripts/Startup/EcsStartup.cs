@@ -1,16 +1,18 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.UnityEditor;
+using TownBuilder.Context;
 using TownBuilder.MonoComponents;
-using TownBuilder.Setup;
+using TownBuilder.SO;
 using TownBuilder.Systems;
 using TownBuilder.Systems.Camera;
 using UnityEngine;
 
 namespace TownBuilder.Startup
 {
-    internal sealed class EcsStartup : MonoBehaviour
+    public sealed class EcsStartup : MonoBehaviour
     {
+        [SerializeField] private LevelDescription _levelDescription;
         [SerializeField] private PrefabSetup _prefabSetup;
         [SerializeField] private PrefabFactory _prefabFactory;
 
@@ -18,15 +20,18 @@ namespace TownBuilder.Startup
         private IEcsSystems _systems;
 
         private InputActions _inputActions;
+        private LevelContext _levelContext;
 
         private void Awake()
         {
-            _world = new EcsWorld();
-
             _inputActions = new InputActions();
+            _levelContext = new LevelContext(_levelDescription);
+
+            _world = new EcsWorld();
 
             _systems = new EcsSystems(_world);
             _systems
+                .Add(new GridInitializationSystem())
                 .Add(new PrefabSpawnSystem())
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
@@ -39,7 +44,8 @@ namespace TownBuilder.Startup
 
                 .Inject(_inputActions,
                     _prefabSetup,
-                    _prefabFactory)
+                    _prefabFactory,
+                    _levelContext)
                 .Init();
         }
 

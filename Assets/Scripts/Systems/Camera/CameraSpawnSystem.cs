@@ -1,7 +1,7 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using TownBuilder.MonoComponents;
-using TownBuilder.Setup;
+using TownBuilder.SO;
 
 namespace TownBuilder.Systems.Camera
 {
