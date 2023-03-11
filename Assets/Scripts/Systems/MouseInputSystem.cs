@@ -58,7 +58,7 @@ namespace TownBuilder.Systems
             {
                 var mousePosition = _mousePosition.ReadValue<Vector2>();
                 var raycastPosition = RaycastGround(mousePosition);
-                if (raycastPosition == null) return;
+                if (raycastPosition == null) continue;
 
                 if (_mousePosition.IsPressed()) pressingComponents.Get(entity).Position = raycastPosition.Value;
                 if (_mousePressed.WasPressedThisFrame())
