@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01d031e67e5f483288a22e513a42b086, type: 3}
-  m_Name: SpawnPrefabSetup
+  m_Name: PrefabSetup
   m_EditorClassIdentifier: 
   CameraPrefab:
     Prefab: {fileID: 3318724538229875976, guid: 66d9fd3cf5ff3944badd384d46dd0083,
       type: 3}
     Position: {x: 5, y: 0, z: 5}
     Rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  RoadBasePrefab: {fileID: 8256069643000327406, guid: eaabd9e2a28def44ea329d9c457cb74e,
+    type: 3}

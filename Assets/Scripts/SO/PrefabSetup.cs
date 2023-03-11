@@ -2,9 +2,11 @@
 
 namespace TownBuilder.SO
 {
-    [CreateAssetMenu(fileName = "SpawnPrefabSetup", menuName = "ScriptableObjects/SpawnPrefabSetup", order = 0)]
+    [CreateAssetMenu(fileName = "PrefabSetup", menuName = "ScriptableObjects/PrefabSetup", order = 0)]
     public class PrefabSetup : ScriptableObject
     {
         public PrefabSpawnData CameraPrefab;
+
+        public GameObject RoadBasePrefab;
     }
 }
