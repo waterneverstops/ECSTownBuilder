@@ -2,6 +2,7 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
 using TownBuilder.Components;
+using TownBuilder.Components.Building;
 using TownBuilder.Context;
 using TownBuilder.MonoComponents;
 using TownBuilder.SO;
@@ -38,10 +39,12 @@ namespace TownBuilder.Startup
 
             _systems = new EcsSystems(_world);
             _systems
-                .DelHere<SpawnPrefabGrid>()
                 .Add(new GridInitializationSystem())
                 .Add(new SingleBuilderSystem())
+                .Add(new NewRoadProcessingSystem())
+                .DelHere<NewGridBuilding>()
                 .Add(new PrefabSpawnSystem())
+                .DelHere<SpawnPrefabGrid>()
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())
