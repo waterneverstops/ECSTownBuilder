@@ -11,7 +11,7 @@ namespace TownBuilder.Systems
 {
     public class MouseInputSystem : IEcsInitSystem, IEcsRunSystem, IEcsDestroySystem
     {
-        private const string GroundMaskName = "Ground";
+        private const string GroundLayerName = "Ground";
 
         private readonly EcsCustomInject<InputActions> _inputActionsInjection = default;
 
@@ -35,7 +35,7 @@ namespace TownBuilder.Systems
 
             _mousePressed.started += OnMousePressedStarted;
 
-            _groundMask = LayerMask.GetMask(GroundMaskName);
+            _groundMask = LayerMask.GetMask(GroundLayerName);
         }
 
         public void Destroy(IEcsSystems systems)
@@ -118,7 +118,7 @@ namespace TownBuilder.Systems
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, _groundMask))
                 {
-                    var positionInt = Vector3Int.RoundToInt(hit.point);
+                    var positionInt = Vector3Int.FloorToInt(hit.point);
                     var gridPositionInt = new Vector2Int(positionInt.x, positionInt.z);
                     return gridPositionInt;
                 }

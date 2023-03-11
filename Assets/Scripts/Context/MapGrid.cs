@@ -25,10 +25,16 @@ namespace TownBuilder.Context
             get => _cells[x, y];
             set => _cells[x, y] = value;
         }
+        
+        public EcsPackedEntityWithWorld this[Vector2Int position]
+        {
+            get => _cells[position.x, position.y];
+            set => _cells[position.x, position.y] = value;
+        }
 
         public bool IsPositionInbound(Vector2Int position) => IsPositionInbound(position.x, position.y);
         
-        public bool IsPositionInbound(int x, int y) => (x > 0) && (y > 0) && (x < Width) && (y < Height);
+        public bool IsPositionInbound(int x, int y) => (x >= 0) && (y >= 0) && (x < Width) && (y < Height);
 
         public bool IsPositionFree(Vector2Int position) => IsPositionFree(position.x, position.y); 
 
