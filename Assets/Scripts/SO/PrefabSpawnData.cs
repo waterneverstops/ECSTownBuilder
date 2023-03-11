@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TownBuilder.Setup
+namespace TownBuilder.SO
 {
     [Serializable]
     public class PrefabSpawnData
