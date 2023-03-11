@@ -25,7 +25,7 @@ namespace TownBuilder.Systems
                 ref var cellComponent = ref pool.Add(entity);
                 cellComponent.Position = new Vector2Int(x, y);
 
-                grid[x, y] = new Cell(world.PackEntityWithWorld(entity));
+                grid[x, y] = world.PackEntityWithWorld(entity);
             }
         }
     }
