@@ -1,9 +1,12 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Leopotam.EcsLite.ExtendedSystems;
+using TownBuilder.Components;
 using TownBuilder.Context;
 using TownBuilder.MonoComponents;
 using TownBuilder.SO;
 using TownBuilder.Systems;
+using TownBuilder.Systems.Building;
 using TownBuilder.Systems.Camera;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -35,7 +38,9 @@ namespace TownBuilder.Startup
 
             _systems = new EcsSystems(_world);
             _systems
+                .DelHere<SpawnPrefabGrid>()
                 .Add(new GridInitializationSystem())
+                .Add(new SingleBuilderSystem())
                 .Add(new PrefabSpawnSystem())
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
