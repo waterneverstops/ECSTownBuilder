@@ -1,12 +1,14 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using Leopotam.EcsLite.UnityEditor;
 using TownBuilder.Context;
 using TownBuilder.MonoComponents;
 using TownBuilder.SO;
 using TownBuilder.Systems;
 using TownBuilder.Systems.Camera;
 using UnityEngine;
+#if UNITY_EDITOR
+using Leopotam.EcsLite.UnityEditor;
+#endif
 
 namespace TownBuilder.Startup
 {
@@ -25,6 +27,8 @@ namespace TownBuilder.Startup
         private void Awake()
         {
             _inputActions = new InputActions();
+            _inputActions.Enable();
+
             _levelContext = new LevelContext(_levelDescription);
 
             _world = new EcsWorld();
@@ -37,6 +41,7 @@ namespace TownBuilder.Startup
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())
                 .Add(new CameraRotationSystem())
+                .Add(new MouseInputSystem())
 
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
