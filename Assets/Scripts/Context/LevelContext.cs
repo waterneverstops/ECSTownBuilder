@@ -4,7 +4,7 @@ namespace TownBuilder.Context
 {
     public class LevelContext
     {
-        public readonly Grid Grid;
+        public readonly MapGrid MapGrid;
         public readonly LevelDescription LevelDescription;
 
         public LevelContext(LevelDescription levelDescription)
@@ -12,7 +12,7 @@ namespace TownBuilder.Context
             LevelDescription = levelDescription;
 
             var mapSize = LevelDescription.MapSize;
-            Grid = new Grid(mapSize.x, mapSize.y);
+            MapGrid = new MapGrid(mapSize.x, mapSize.y);
         }
     }
 }

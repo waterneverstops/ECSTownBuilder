@@ -16,7 +16,7 @@ namespace TownBuilder.Systems
             var world = systems.GetWorld();
 
             var levelContext = _levelContextInjection.Value;
-            var grid = levelContext.Grid;
+            var grid = levelContext.MapGrid;
 
             for (var x = 0; x < grid.Width; x++)
             for (var y = 0; y < grid.Height; y++)
