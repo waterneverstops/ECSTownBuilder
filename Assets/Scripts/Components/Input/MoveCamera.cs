@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TownBuilder.Components
+namespace TownBuilder.Components.Input
 {
     public struct MoveCamera
     {

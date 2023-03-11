@@ -1,4 +1,4 @@
-namespace TownBuilder.Components
+namespace TownBuilder.Components.Input
 {
     public struct RotateCamera
     {
