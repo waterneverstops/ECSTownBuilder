@@ -45,6 +45,8 @@ namespace TownBuilder.Startup
                 .DelHere<NewGridBuilding>()
                 .Add(new PrefabSpawnSystem())
                 .DelHere<SpawnPrefabGrid>()
+                .Add(new RoadViewRefreshSystem())
+                .DelHere<RefreshRoadModel>()
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())

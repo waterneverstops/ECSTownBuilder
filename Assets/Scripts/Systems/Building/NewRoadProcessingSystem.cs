@@ -21,13 +21,13 @@ namespace TownBuilder.Systems.Building
         {
             var world = systems.GetWorld();
 
-            var newSpawnedRoads = world.Filter<NewGridBuilding>().Inc<Road>().End();
+            var newSpawnedRoadsFilter = world.Filter<NewGridBuilding>().Inc<Road>().End();
 
             var refreshPool = world.GetPool<RefreshRoadModel>();
             var cellPool = world.GetPool<Cell>();
             var roadPool = world.GetPool<Road>();
 
-            foreach (var newSpawnedRoad in newSpawnedRoads)
+            foreach (var newSpawnedRoad in newSpawnedRoadsFilter)
             {
                 refreshPool.Add(newSpawnedRoad);
                 foreach (var neighbourPosition in _grid.GetNeighbours(cellPool.Get(newSpawnedRoad).Position))

@@ -25,7 +25,7 @@ namespace TownBuilder.Systems.Building
             var singlePool = world.GetPool<BuildSingle>();
 
             ref var builderComponent = ref builderPool.Add(builderEntity);
-            builderComponent.Prefab = _prefabSetupInjection.Value.RoadBasePrefab;
+            builderComponent.Prefab = _prefabSetupInjection.Value.RoadPrefabSetup.BaseRoadPrefab;
 
             singlePool.Add(builderEntity);
         }
