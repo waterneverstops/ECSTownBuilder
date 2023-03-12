@@ -7,6 +7,8 @@ namespace TownBuilder.SO
     public class PrefabSetup : ScriptableObject
     {
         public PrefabSpawnData CameraPrefab;
+        
+        public GameObject BaseHousePrefab;
 
         public RoadPrefabSetup RoadPrefabSetup;
     }

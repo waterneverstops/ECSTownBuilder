@@ -43,6 +43,22 @@ namespace TownBuilder.Context
             return IsPositionFree(position.x, position.y);
         }
 
+        public bool IsPositionInbound(int x, int y) => x >= 0 && y >= 0 && x < Width && y < Height;
+
+        public bool IsPositionFree(int x, int y)
+        {
+            var packedEntityWithWorld = _cells[x, y];
+            if (packedEntityWithWorld.Unpack(out var world, out var entity))
+            {
+                var roadPool = world.GetPool<Road>();
+                var structurePool = world.GetPool<Structure>();
+
+                return !roadPool.Has(entity) && !structurePool.Has(entity);
+            }
+
+            return true;
+        }
+
         public List<Vector2Int> GetRoadPathfindingNeighbours(Vector2Int position, bool isAgent)
         {
             var neighboursPositions = GetNeighbours(position);
@@ -88,22 +104,6 @@ namespace TownBuilder.Context
             if (packedEntityWithWorld.Unpack(out var world, out var entity)) return world.GetPool<Road>().Has(entity);
 
             return false;
-        }
-
-        private bool IsPositionInbound(int x, int y) => x >= 0 && y >= 0 && x < Width && y < Height;
-
-        private bool IsPositionFree(int x, int y)
-        {
-            var packedEntityWithWorld = _cells[x, y];
-            if (packedEntityWithWorld.Unpack(out var world, out var entity))
-            {
-                var roadPool = world.GetPool<Road>();
-                var structurePool = world.GetPool<Structure>();
-
-                return !roadPool.Has(entity) && !structurePool.Has(entity);
-            }
-
-            return true;
         }
     }
 }

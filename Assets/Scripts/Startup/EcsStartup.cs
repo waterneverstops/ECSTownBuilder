@@ -42,6 +42,7 @@ namespace TownBuilder.Startup
                 .Add(new GridInitializationSystem())
                 .Add(new SingleBuilderSystem())
                 .Add(new PathBuilderSystem())
+                .Add(new AreaBuilderSystem())
                 .Add(new NewRoadProcessingSystem())
                 .DelHere<NewGridBuilding>()
                 .Add(new PrefabSpawnSystem())
