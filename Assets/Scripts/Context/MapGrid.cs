@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 using TownBuilder.Components.Grid;
+using TownBuilder.SO.RoadSetup;
 using UnityEngine;
 
 namespace TownBuilder.Context
@@ -68,7 +69,7 @@ namespace TownBuilder.Context
             if (position.x > 0) neighbours.Add(new Vector2Int(position.x - 1, position.y));
             if (position.x < Width - 1) neighbours.Add(new Vector2Int(position.x + 1, position.y));
             if (position.y > 0) neighbours.Add(new Vector2Int(position.x, position.y - 1));
-            if (position.y < Height) neighbours.Add(new Vector2Int(position.x, position.y + 1));
+            if (position.y < Height - 1) neighbours.Add(new Vector2Int(position.x, position.y + 1));
 
             return neighbours;
         }
