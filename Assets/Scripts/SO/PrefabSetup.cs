@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TownBuilder.SO.RoadSetup;
+using UnityEngine;
 
 namespace TownBuilder.SO
 {
@@ -7,6 +8,6 @@ namespace TownBuilder.SO
     {
         public PrefabSpawnData CameraPrefab;
 
-        public GameObject RoadBasePrefab;
+        public RoadPrefabSetup RoadPrefabSetup;
     }
 }

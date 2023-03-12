@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace TownBuilder.SO
 {
+    [Serializable]
     public class ViewVariant
     {
         public GameObject Prefab;

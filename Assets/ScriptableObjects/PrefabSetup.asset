@@ -17,5 +17,4 @@ MonoBehaviour:
       type: 3}
     Position: {x: 5, y: 0, z: 5}
     Rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
-  RoadBasePrefab: {fileID: 8256069643000327406, guid: eaabd9e2a28def44ea329d9c457cb74e,
-    type: 3}
+  RoadPrefabSetup: {fileID: 11400000, guid: 431692a1d3bb4e84cae4f99c8a3d7c50, type: 2}
