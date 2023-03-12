@@ -8,6 +8,7 @@ namespace TownBuilder.SO.RoadSetup
     public class RoadPrefabSetup : ScriptableObject
     {
         public GameObject BaseRoadPrefab;
+        public GameObject GhostRoadPrefab;
         public RoadNeighborsAndVariant SpotVariant;
         public RoadNeighborsAndVariant CrossVariant;
 

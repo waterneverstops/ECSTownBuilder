@@ -1,4 +1,4 @@
 namespace TownBuilder.Components.Building
 {
-    public struct BuildPath { }
+    public struct BuildPath : IBuilderType { }
 }

@@ -1,6 +1,7 @@
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
+using Leopotam.EcsLite.Unity.Ugui;
 using TownBuilder.Components;
 using TownBuilder.Components.Building;
 using TownBuilder.Context;
@@ -9,6 +10,7 @@ using TownBuilder.SO;
 using TownBuilder.Systems;
 using TownBuilder.Systems.Building;
 using TownBuilder.Systems.Camera;
+using TownBuilder.Systems.UGui;
 using UnityEngine;
 #if UNITY_EDITOR
 using Leopotam.EcsLite.UnityEditor;
@@ -18,6 +20,8 @@ namespace TownBuilder.Startup
 {
     public sealed class EcsStartup : MonoBehaviour
     {
+        [SerializeField] EcsUguiEmitter _uguiEmitter;
+        
         [SerializeField] private LevelDescription _levelDescription;
         [SerializeField] private PrefabSetup _prefabSetup;
         [SerializeField] private PrefabFactory _prefabFactory;
@@ -42,6 +46,7 @@ namespace TownBuilder.Startup
                 .Add(new GridInitializationSystem())
                 .Add(new SingleBuilderSystem())
                 .Add(new PathBuilderSystem())
+                .Add(new PathGhostBuilderSystem())
                 .Add(new AreaBuilderSystem())
                 .Add(new NewRoadProcessingSystem())
                 .DelHere<NewGridBuilding>()
@@ -49,11 +54,15 @@ namespace TownBuilder.Startup
                 .DelHere<SpawnPrefabGrid>()
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
+                .Add(new GridDeleteSystem())
+                .Add(new RefreshRoadNeighboursOnDeleteSystem())
+                .DelHere<Delete>()
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())
                 .Add(new CameraRotationSystem())
                 .Add(new MouseInputSystem())
+                .Add(new ChooseBuildModeSystem())
 
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
@@ -63,6 +72,7 @@ namespace TownBuilder.Startup
                     _prefabSetup,
                     _prefabFactory,
                     _levelContext)
+                .InjectUgui(_uguiEmitter)
                 .Init();
         }
 
