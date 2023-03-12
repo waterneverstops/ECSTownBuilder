@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 using TownBuilder.Components.Grid;
-using TownBuilder.SO.RoadSetup;
 using UnityEngine;
 
 namespace TownBuilder.Context
@@ -39,28 +38,31 @@ namespace TownBuilder.Context
             return IsPositionInbound(position.x, position.y);
         }
 
-        public bool IsPositionInbound(int x, int y)
-        {
-            return x >= 0 && y >= 0 && x < Width && y < Height;
-        }
-
         public bool IsPositionFree(Vector2Int position)
         {
             return IsPositionFree(position.x, position.y);
         }
 
-        public bool IsPositionFree(int x, int y)
+        public List<Vector2Int> GetRoadPathfindingNeighbours(Vector2Int position, bool isAgent)
         {
-            var packedEntityWithWorld = _cells[x, y];
-            if (packedEntityWithWorld.Unpack(out var world, out var entity))
+            var neighboursPositions = GetNeighbours(position);
+            for (var i = neighboursPositions.Count - 1; i >= 0; i--)
             {
-                var roadPool = world.GetPool<Road>();
-                var structurePool = world.GetPool<Structure>();
+                var neighbourPosition = neighboursPositions[i];
 
-                return !roadPool.Has(entity) && !structurePool.Has(entity);
+                if (isAgent)
+                {
+                    if (!PositionSuitableForAgent(this[neighbourPosition]))
+                        neighboursPositions.Remove(neighbourPosition);
+                }
+                else
+                {
+                    if (!PositionSuitableForRoad(this[neighbourPosition]))
+                        neighboursPositions.Remove(neighbourPosition);
+                }
             }
 
-            return true;
+            return neighboursPositions;
         }
 
         public List<Vector2Int> GetNeighbours(Vector2Int position)
@@ -72,6 +74,36 @@ namespace TownBuilder.Context
             if (position.y < Height - 1) neighbours.Add(new Vector2Int(position.x, position.y + 1));
 
             return neighbours;
+        }
+
+        private bool PositionSuitableForRoad(EcsPackedEntityWithWorld packedEntityWithWorld)
+        {
+            if (packedEntityWithWorld.Unpack(out var world, out var entity)) return !world.GetPool<Structure>().Has(entity);
+
+            return false;
+        }
+
+        private bool PositionSuitableForAgent(EcsPackedEntityWithWorld packedEntityWithWorld)
+        {
+            if (packedEntityWithWorld.Unpack(out var world, out var entity)) return world.GetPool<Road>().Has(entity);
+
+            return false;
+        }
+
+        private bool IsPositionInbound(int x, int y) => x >= 0 && y >= 0 && x < Width && y < Height;
+
+        private bool IsPositionFree(int x, int y)
+        {
+            var packedEntityWithWorld = _cells[x, y];
+            if (packedEntityWithWorld.Unpack(out var world, out var entity))
+            {
+                var roadPool = world.GetPool<Road>();
+                var structurePool = world.GetPool<Structure>();
+
+                return !roadPool.Has(entity) && !structurePool.Has(entity);
+            }
+
+            return true;
         }
     }
 }

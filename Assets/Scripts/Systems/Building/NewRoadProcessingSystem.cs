@@ -29,7 +29,9 @@ namespace TownBuilder.Systems.Building
 
             foreach (var newSpawnedRoad in newSpawnedRoadsFilter)
             {
-                refreshPool.Add(newSpawnedRoad);
+                if (!refreshPool.Has(newSpawnedRoad))
+                    refreshPool.Add(newSpawnedRoad);
+
                 foreach (var neighbourPosition in _grid.GetNeighbours(cellPool.Get(newSpawnedRoad).Position))
                     if (_grid[neighbourPosition].Unpack(out world, out var entity))
                     {
