@@ -6,6 +6,7 @@ namespace TownBuilder.MonoComponents
     public class ViewSwapper : MonoBehaviour
     {
         [SerializeField] private GameObject _view;
+        [SerializeField] private Transform _viewParent;
 
         public void SwapView(ViewVariant viewVariant)
         {
@@ -14,8 +15,9 @@ namespace TownBuilder.MonoComponents
                 Destroy(_view);
             }
 
-            var newView = Instantiate(viewVariant.Prefab, viewVariant.Position, viewVariant.Rotation);
-            newView.transform.parent = transform;
+            var newView = Instantiate(viewVariant.Prefab, _viewParent);
+            newView.transform.localPosition = viewVariant.Position;
+            newView.transform.localRotation = viewVariant.Rotation;
             _view = newView;
         }
     }
