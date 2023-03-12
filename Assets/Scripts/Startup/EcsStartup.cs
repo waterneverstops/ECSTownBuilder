@@ -43,6 +43,7 @@ namespace TownBuilder.Startup
 
             _systems = new EcsSystems(_world);
             _systems
+                    // Grid and building
                 .Add(new GridInitializationSystem())
                 .Add(new SingleBuilderSystem())
                 .Add(new PathBuilderSystem())
@@ -50,13 +51,16 @@ namespace TownBuilder.Startup
                 .Add(new AreaBuilderSystem())
                 .Add(new NewRoadProcessingSystem())
                 .DelHere<NewGridBuilding>()
-                .Add(new PrefabSpawnSystem())
-                .DelHere<SpawnPrefabGrid>()
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
-                .Add(new GridDeleteSystem())
+                    // Delete
                 .Add(new RefreshRoadNeighboursOnDeleteSystem())
+                .Add(new GridDeleteSystem())
                 .DelHere<Delete>()
+                    // Spawn
+                .Add(new PrefabSpawnSystem())
+                .DelHere<SpawnPrefabGrid>()
+                    // Input
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())

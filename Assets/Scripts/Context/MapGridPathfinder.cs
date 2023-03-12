@@ -16,6 +16,8 @@ namespace TownBuilder.Context
 
         private readonly Dictionary<Vector2Int, Vector2Int> _parentsDictionary = new();
 
+        public IReadOnlyList<Vector2Int> Path => _path;
+
         public List<Vector2Int> GetAStarSearchPath(MapGrid grid, Vector2Int startPosition, Vector2Int endPosition, bool isAgent = false)
         {
             _positionsToCheck.Clear();

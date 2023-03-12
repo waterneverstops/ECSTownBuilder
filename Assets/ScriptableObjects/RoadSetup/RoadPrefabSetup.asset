@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseRoadPrefab: {fileID: 8256069643000327406, guid: eaabd9e2a28def44ea329d9c457cb74e,
     type: 3}
+  GhostRoadPrefab: {fileID: 8754092732529261495, guid: 061e3f386c4813444afbef93e521f6ee,
+    type: 3}
   SpotVariant:
     Neighbors:
       Up: 0

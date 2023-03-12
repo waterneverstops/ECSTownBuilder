@@ -29,11 +29,18 @@ namespace TownBuilder.Systems.Building
             var world = systems.GetWorld();
 
             var roadsToRefreshFilter = world.Filter<RefreshRoadModel>().Inc<Road>().Inc<ViewSwapperLink>().End();
+            var ghostRoadsToRefreshFilter = world.Filter<RefreshRoadModel>().Inc<GhostRoad>().Inc<ViewSwapperLink>().End();
 
             var cellPool = world.GetPool<Cell>();
             var viewSwapperPool = world.GetPool<ViewSwapperLink>();
 
-            foreach (var roadToRefresh in roadsToRefreshFilter)
+            ProcessRoadFilter(roadsToRefreshFilter, cellPool, viewSwapperPool);
+            ProcessRoadFilter(ghostRoadsToRefreshFilter, cellPool, viewSwapperPool);
+        }
+
+        private void ProcessRoadFilter(EcsFilter filter, EcsPool<Cell> cellPool, EcsPool<ViewSwapperLink> viewSwapperPool)
+        {
+            foreach (var roadToRefresh in filter)
             {
                 var position = cellPool.Get(roadToRefresh).Position;
                 var newView = _roadPrefabSetup.GetSuitableViewVariant(GetRoadNeighbours(position));
@@ -61,7 +68,8 @@ namespace TownBuilder.Systems.Building
             if (packedEntityWithWorld.Unpack(out var world, out var entity))
             {
                 var roadPool = world.GetPool<Road>();
-                return roadPool.Has(entity);
+                var ghostPool = world.GetPool<GhostRoad>();
+                return roadPool.Has(entity) || ghostPool.Has(entity);
             }
 
             return false;
