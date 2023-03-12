@@ -13,23 +13,12 @@ namespace TownBuilder.Systems.Building
     public class AreaBuilderSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
-        private readonly EcsCustomInject<PrefabSetup> _prefabSetupInjection = default;
 
         private MapGrid _mapGrid;
 
         public void Init(IEcsSystems systems)
         {
             _mapGrid = _levelContextInjection.Value.MapGrid;
-
-            var world = systems.GetWorld();
-            var builderEntity = world.NewEntity();
-            var builderPool = world.GetPool<Builder>();
-            var areaPool = world.GetPool<BuildArea>();
-
-            ref var builderComponent = ref builderPool.Add(builderEntity);
-            builderComponent.Prefab = _prefabSetupInjection.Value.BaseHousePrefab;
-
-            areaPool.Add(builderEntity);
         }
 
         public void Run(IEcsSystems systems)
