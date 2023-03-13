@@ -19,6 +19,7 @@ namespace TownBuilder.Systems
         private InputActions _inputActions;
 
         private InputAction _leftMousePressed;
+        private InputAction _rightMousePressed;
         private InputAction _mousePosition;
 
         private LayerMask _groundMask;
@@ -31,9 +32,11 @@ namespace TownBuilder.Systems
             _inputActions = _inputActionsInjection.Value;
 
             _leftMousePressed = _inputActions.MouseControl.LeftMousePressed;
+            _rightMousePressed = _inputActions.MouseControl.RightMousePressed;
             _mousePosition = _inputActions.MouseControl.MousePosition;
 
             _leftMousePressed.started += OnLeftMousePressedStarted;
+            _rightMousePressed.started += OnRightMousePressedStarted;
 
             _groundMask = LayerMask.GetMask(GroundLayerName);
         }
@@ -41,6 +44,7 @@ namespace TownBuilder.Systems
         public void Destroy(IEcsSystems systems)
         {
             _leftMousePressed.started -= OnLeftMousePressedStarted;
+            _rightMousePressed.started -= OnRightMousePressedStarted;
         }
 
         public void Run(IEcsSystems systems)
@@ -48,6 +52,7 @@ namespace TownBuilder.Systems
             _isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
             
             ProcessMouseInput<LeftMousePressed, LeftMousePressing, LeftMouseReleased>(_leftMousePressed);
+            ProcessMouseInput<RightMousePressed, RightMousePressing, RightMouseReleased>(_rightMousePressed);
         }
 
         private void ProcessMouseInput<TPressed, TPressing, TReleased>(InputAction mousePressedAction) 
@@ -106,6 +111,21 @@ namespace TownBuilder.Systems
 
             var newEntity = _world.NewEntity();
             var pool = _world.GetPool<LeftMousePressing>();
+
+            ref var pressingComponent = ref pool.Add(newEntity);
+            pressingComponent.Position = raycastPosition.Value;
+        }
+        
+        private void OnRightMousePressedStarted(InputAction.CallbackContext obj)
+        {
+            if (_isPointerOverUI) return;
+            
+            var mousePosition = _mousePosition.ReadValue<Vector2>();
+            var raycastPosition = RaycastGround(mousePosition);
+            if (raycastPosition == null) return;
+
+            var newEntity = _world.NewEntity();
+            var pool = _world.GetPool<RightMousePressing>();
 
             ref var pressingComponent = ref pool.Add(newEntity);
             pressingComponent.Position = raycastPosition.Value;

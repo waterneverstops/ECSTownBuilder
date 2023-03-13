@@ -158,6 +158,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightMousePressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""6311e778-2c81-4354-990c-748cca6448b1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -182,6 +191,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""LeftMousePressed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a571797b-5314-4134-b544-767cb2993d6a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightMousePressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -196,6 +216,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_MouseControl = asset.FindActionMap("MouseControl", throwIfNotFound: true);
         m_MouseControl_MousePosition = m_MouseControl.FindAction("MousePosition", throwIfNotFound: true);
         m_MouseControl_LeftMousePressed = m_MouseControl.FindAction("LeftMousePressed", throwIfNotFound: true);
+        m_MouseControl_RightMousePressed = m_MouseControl.FindAction("RightMousePressed", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -298,12 +319,14 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private IMouseControlActions m_MouseControlActionsCallbackInterface;
     private readonly InputAction m_MouseControl_MousePosition;
     private readonly InputAction m_MouseControl_LeftMousePressed;
+    private readonly InputAction m_MouseControl_RightMousePressed;
     public struct MouseControlActions
     {
         private @InputActions m_Wrapper;
         public MouseControlActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @MousePosition => m_Wrapper.m_MouseControl_MousePosition;
         public InputAction @LeftMousePressed => m_Wrapper.m_MouseControl_LeftMousePressed;
+        public InputAction @RightMousePressed => m_Wrapper.m_MouseControl_RightMousePressed;
         public InputActionMap Get() { return m_Wrapper.m_MouseControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -319,6 +342,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @LeftMousePressed.started -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnLeftMousePressed;
                 @LeftMousePressed.performed -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnLeftMousePressed;
                 @LeftMousePressed.canceled -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnLeftMousePressed;
+                @RightMousePressed.started -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnRightMousePressed;
+                @RightMousePressed.performed -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnRightMousePressed;
+                @RightMousePressed.canceled -= m_Wrapper.m_MouseControlActionsCallbackInterface.OnRightMousePressed;
             }
             m_Wrapper.m_MouseControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -329,6 +355,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @LeftMousePressed.started += instance.OnLeftMousePressed;
                 @LeftMousePressed.performed += instance.OnLeftMousePressed;
                 @LeftMousePressed.canceled += instance.OnLeftMousePressed;
+                @RightMousePressed.started += instance.OnRightMousePressed;
+                @RightMousePressed.performed += instance.OnRightMousePressed;
+                @RightMousePressed.canceled += instance.OnRightMousePressed;
             }
         }
     }
@@ -342,5 +371,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     {
         void OnMousePosition(InputAction.CallbackContext context);
         void OnLeftMousePressed(InputAction.CallbackContext context);
+        void OnRightMousePressed(InputAction.CallbackContext context);
     }
 }
