@@ -23,13 +23,13 @@ namespace TownBuilder.Systems.Building
             var world = systems.GetWorld();
 
             var builderFilter = world.Filter<Builder>().Inc<BuildSingle>().End();
-            var pressedFilter = world.Filter<MousePressed>().End();
+            var pressedFilter = world.Filter<LeftMousePressed>().End();
 
             foreach (var builderEntity in builderFilter)
             {
                 foreach (var pressedEntity in pressedFilter)
                 {
-                    var pressedPool = world.GetPool<MousePressed>();
+                    var pressedPool = world.GetPool<LeftMousePressed>();
                     var position = pressedPool.Get(pressedEntity).Position;
 
                     if (!_mapGrid.IsPositionInbound(position) || !_mapGrid.IsPositionFree(position)) continue;

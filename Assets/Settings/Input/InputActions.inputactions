@@ -129,7 +129,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "MousePressed",
+                    "name": "LeftMousePressed",
                     "type": "Button",
                     "id": "4f42ca21-f1f8-48cc-90aa-92c7afdf0268",
                     "expectedControlType": "Button",
@@ -157,7 +157,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MousePressed",
+                    "action": "LeftMousePressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

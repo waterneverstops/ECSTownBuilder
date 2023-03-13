@@ -26,13 +26,13 @@ namespace TownBuilder.Systems.Building
             var world = systems.GetWorld();
 
             var builderFilter = world.Filter<Builder>().Inc<BuildArea>().End();
-            var mouseInputFilter = world.Filter<MousePressed>().Inc<MouseReleased>().End();
+            var mouseInputFilter = world.Filter<LeftMousePressed>().Inc<LeftMouseReleased>().End();
 
             foreach (var builderEntity in builderFilter)
             foreach (var mouseInputEntity in mouseInputFilter)
             {
-                var pressedPool = world.GetPool<MousePressed>();
-                var releasedPool = world.GetPool<MouseReleased>();
+                var pressedPool = world.GetPool<LeftMousePressed>();
+                var releasedPool = world.GetPool<LeftMouseReleased>();
                 var pressedPosition = pressedPool.Get(mouseInputEntity).Position;
                 var releasedPosition = releasedPool.Get(mouseInputEntity).Position;
 

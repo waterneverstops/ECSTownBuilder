@@ -18,7 +18,7 @@ namespace TownBuilder.Systems
         private EcsWorld _world;
         private InputActions _inputActions;
 
-        private InputAction _mousePressed;
+        private InputAction _leftMousePressed;
         private InputAction _mousePosition;
 
         private LayerMask _groundMask;
@@ -30,50 +30,58 @@ namespace TownBuilder.Systems
             _world = systems.GetWorld();
             _inputActions = _inputActionsInjection.Value;
 
-            _mousePressed = _inputActions.MouseControl.MousePressed;
+            _leftMousePressed = _inputActions.MouseControl.LeftMousePressed;
             _mousePosition = _inputActions.MouseControl.MousePosition;
 
-            _mousePressed.started += OnMousePressedStarted;
+            _leftMousePressed.started += OnLeftMousePressedStarted;
 
             _groundMask = LayerMask.GetMask(GroundLayerName);
         }
 
         public void Destroy(IEcsSystems systems)
         {
-            _mousePressed.started -= OnMousePressedStarted;
+            _leftMousePressed.started -= OnLeftMousePressedStarted;
         }
 
         public void Run(IEcsSystems systems)
         {
             _isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
             
+            ProcessMouseInput<LeftMousePressed, LeftMousePressing, LeftMouseReleased>(_leftMousePressed);
+        }
+
+        private void ProcessMouseInput<TPressed, TPressing, TReleased>(InputAction mousePressedAction) 
+            where TPressed : struct, IMouseInput
+            where TPressing : struct, IMouseInput
+            where TReleased : struct, IMouseInput
+        {
             // Clear mouse input components on next frame from releasing
-            var releaseFilter = _world.Filter<MouseReleased>().End();
+            var releaseFilter = _world.Filter<TReleased>().End();
             foreach (var entity in releaseFilter) _world.DelEntity(entity);
 
-            var moveFilter = _world.Filter<MousePressing>().End();
-            var pressingComponents = _world.GetPool<MousePressing>();
+            var pressingFilter = _world.Filter<TPressing>().End();
+            var pressingPool = _world.GetPool<TPressing>();
 
-            foreach (var entity in moveFilter)
+            foreach (var entity in pressingFilter)
             {
                 var mousePosition = _mousePosition.ReadValue<Vector2>();
                 var raycastPosition = RaycastGround(mousePosition);
                 if (raycastPosition == null) continue;
 
-                if (_mousePosition.IsPressed()) pressingComponents.Get(entity).Position = raycastPosition.Value;
-                if (_mousePressed.WasPressedThisFrame())
+                if (_mousePosition.IsPressed()) pressingPool.Get(entity).Position = raycastPosition.Value;
+                if (mousePressedAction.WasPressedThisFrame())
                 {
-                    var pressedPool = _world.GetPool<MousePressed>();
+                    var pressedPool = _world.GetPool<TPressed>();
                     ref var pressedComponent = ref pressedPool.Add(entity);
 
                     pressedComponent.Position = raycastPosition.Value;
                 }
 
-                if (!_mousePressed.IsPressed())
+                if (!mousePressedAction.IsPressed())
                 {
-                    if (_mousePressed.WasReleasedThisFrame())
+                    if (mousePressedAction.WasReleasedThisFrame())
                     {
-                        var releasedPool = _world.GetPool<MouseReleased>();
+                        var releasedPool = _world.GetPool<TReleased>();
                         ref var releasedComponent = ref releasedPool.Add(entity);
 
                         releasedComponent.Position = raycastPosition.Value;
@@ -81,14 +89,14 @@ namespace TownBuilder.Systems
                     else
                     {
                         // If mouse was released somewhere outside game focus
-                        var pressedFilter = _world.Filter<MousePressed>().End();
+                        var pressedFilter = _world.Filter<TPressed>().End();
                         foreach (var pressedEntity in pressedFilter) _world.DelEntity(pressedEntity);
                     }
                 }
             }
         }
 
-        private void OnMousePressedStarted(InputAction.CallbackContext obj)
+        private void OnLeftMousePressedStarted(InputAction.CallbackContext obj)
         {
             if (_isPointerOverUI) return;
             
@@ -97,7 +105,7 @@ namespace TownBuilder.Systems
             if (raycastPosition == null) return;
 
             var newEntity = _world.NewEntity();
-            var pool = _world.GetPool<MousePressing>();
+            var pool = _world.GetPool<LeftMousePressing>();
 
             ref var pressingComponent = ref pool.Add(newEntity);
             pressingComponent.Position = raycastPosition.Value;

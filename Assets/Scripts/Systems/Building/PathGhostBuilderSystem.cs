@@ -24,7 +24,7 @@ namespace TownBuilder.Systems.Building
         {
             var world = systems.GetWorld();
 
-            var mouseReleasedFilter = world.Filter<MouseReleased>().End();
+            var mouseReleasedFilter = world.Filter<LeftMouseReleased>().End();
             foreach (var mouseReleasedEntity in mouseReleasedFilter)
             {
                 var destroyPool = world.GetPool<Destroy>();
@@ -35,13 +35,13 @@ namespace TownBuilder.Systems.Building
             }
 
             var builderFilter = world.Filter<Builder>().Inc<BuildPath>().End();
-            var mouseInputFilter = world.Filter<MousePressed>().Inc<MousePressing>().Exc<MouseReleased>().End();
+            var mouseInputFilter = world.Filter<LeftMousePressed>().Inc<LeftMousePressing>().Exc<LeftMouseReleased>().End();
 
             foreach (var builderEntity in builderFilter)
             foreach (var mouseInputEntity in mouseInputFilter)
             {
-                var pressedPool = world.GetPool<MousePressed>();
-                var pressingPool = world.GetPool<MousePressing>();
+                var pressedPool = world.GetPool<LeftMousePressed>();
+                var pressingPool = world.GetPool<LeftMousePressing>();
                 var pressedPosition = pressedPool.Get(mouseInputEntity).Position;
                 var pressingPosition = pressingPool.Get(mouseInputEntity).Position;
 
