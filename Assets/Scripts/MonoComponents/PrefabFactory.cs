@@ -9,6 +9,7 @@ namespace TownBuilder.MonoComponents
     public class PrefabFactory : MonoBehaviour
     {
         private const string DecorLayerName = "Decor";
+        private const string GridObjectsParentName = "Grid";
 
         private readonly Collider[] _results = new Collider[10];
         
@@ -24,7 +25,7 @@ namespace TownBuilder.MonoComponents
             _world = world;
             _mapGrid = mapGrid;
 
-            _gridParentTransform = new GameObject("Grid").transform;
+            _gridParentTransform = new GameObject(GridObjectsParentName).transform;
 
             _decorMask = LayerMask.GetMask(DecorLayerName);
         }
