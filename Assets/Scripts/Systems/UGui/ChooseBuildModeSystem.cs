@@ -2,7 +2,6 @@
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.Unity.Ugui;
 using TownBuilder.Components.Building;
-using TownBuilder.Context;
 using TownBuilder.SO;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -18,7 +17,7 @@ namespace TownBuilder.Systems.UGui
 
         private PrefabSetup _prefabSetup;
         private EcsWorld _world;
-        
+
         public void Init(IEcsSystems systems)
         {
             _prefabSetup = _prefabSetupInjection.Value;
@@ -44,14 +43,11 @@ namespace TownBuilder.Systems.UGui
         private ref Builder SetupBuilderOfType<T>() where T : struct, IBuilderType
         {
             var builderFilter = _world.Filter<Builder>().End();
-            foreach (var builderEntity in builderFilter)
-            {
-                _world.DelEntity(builderEntity);
-            }
+            foreach (var builderEntity in builderFilter) _world.DelEntity(builderEntity);
 
             var builderPool = _world.GetPool<Builder>();
             var typePool = _world.GetPool<T>();
-            
+
             var newEntity = _world.NewEntity();
             typePool.Add(newEntity);
             ref var builderComponent = ref builderPool.Add(newEntity);
