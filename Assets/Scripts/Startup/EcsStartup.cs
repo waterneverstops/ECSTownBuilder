@@ -45,14 +45,14 @@ namespace TownBuilder.Startup
 
             _systems = new EcsSystems(_world);
             _systems
-                // Delete
-                .Add(new RefreshRoadNeighboursOnDeleteSystem())
-                .Add(new GridDeleteSystem())
-                .DelHere<Delete>()
+                // Destroy
+                .Add(new RefreshRoadNeighboursOnDestroySystem())
+                .Add(new GridDestroySystem())
+                .DelHere<Destroy>()
                 // Spawn
                 .Add(new PrefabSpawnSystem())
                 .DelHere<SpawnPrefabGrid>()
-                // DisjointSet
+                // RoadDisjointSet
                 .Add(new NewRoadParentProcessingSystem())
                 .Add(new MergeRoadSetSystem())
                 // Grid and building

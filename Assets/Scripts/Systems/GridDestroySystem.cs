@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace TownBuilder.Systems
 {
-    public class GridDeleteSystem : IEcsInitSystem, IEcsRunSystem
+    public class GridDestroySystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
@@ -23,27 +23,27 @@ namespace TownBuilder.Systems
         {
             var world = systems.GetWorld();
 
-            var deleteFilter = world.Filter<Delete>().Inc<Cell>().End();
+            var destroyFilter = world.Filter<Destroy>().Inc<Cell>().End();
 
-            foreach (var deleteEntity in deleteFilter)
+            foreach (var destroyEntity in destroyFilter)
             {
                 var cellPool = world.GetPool<Cell>();
                 var gameObjectPool = world.GetPool<GameObjectLink>();
-                var deletePosition = cellPool.Get(deleteEntity).Position;
+                var destroyPosition = cellPool.Get(destroyEntity).Position;
 
-                if (gameObjectPool.Has(deleteEntity))
+                if (gameObjectPool.Has(destroyEntity))
                 {
-                    var gameObject = gameObjectPool.Get(deleteEntity);
+                    var gameObject = gameObjectPool.Get(destroyEntity);
                     Object.Destroy(gameObject.Value);
                 }
                 
-                world.DelEntity(deleteEntity);
+                world.DelEntity(destroyEntity);
                 
                 var newEntity = world.NewEntity();
                 ref var cellComponent = ref cellPool.Add(newEntity);
-                cellComponent.Position = new Vector2Int(deletePosition.x, deletePosition.y);
+                cellComponent.Position = new Vector2Int(destroyPosition.x, destroyPosition.y);
 
-                _mapGrid[deletePosition] = world.PackEntityWithWorld(newEntity);
+                _mapGrid[destroyPosition] = world.PackEntityWithWorld(newEntity);
             }
         }
     }

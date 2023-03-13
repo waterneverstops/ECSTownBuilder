@@ -7,7 +7,7 @@ using TownBuilder.Context;
 
 namespace TownBuilder.Systems.Building
 {
-    public class RefreshRoadNeighboursOnDeleteSystem : IEcsInitSystem, IEcsRunSystem
+    public class RefreshRoadNeighboursOnDestroySystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
@@ -22,7 +22,7 @@ namespace TownBuilder.Systems.Building
         {
             var world = systems.GetWorld();
 
-            var refreshFilter = world.Filter<Delete>().Inc<RefreshRoadNeighboursOnDelete>().End();
+            var refreshFilter = world.Filter<Destroy>().Inc<RefreshRoadNeighboursOnDestroy>().End();
 
             var refreshPool = world.GetPool<RefreshRoadModel>();
             var cellPool = world.GetPool<Cell>();

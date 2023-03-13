@@ -3,7 +3,7 @@ using TownBuilder.MonoComponents.MonoLinks.Base;
 
 namespace TownBuilder.MonoComponents.MonoLinks.Building
 {
-    public class RefreshRoadNeighboursOnDeleteMonoLink : MonoLink<RefreshRoadNeighboursOnDelete>
+    public class RefreshRoadNeighboursOnDestroyMonoLink : MonoLink<RefreshRoadNeighboursOnDestroy>
     {
     }
 }

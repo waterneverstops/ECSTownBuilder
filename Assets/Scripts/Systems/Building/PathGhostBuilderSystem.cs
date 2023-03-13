@@ -27,10 +27,10 @@ namespace TownBuilder.Systems.Building
             var mouseReleasedFilter = world.Filter<MouseReleased>().End();
             foreach (var mouseReleasedEntity in mouseReleasedFilter)
             {
-                var deletePool = world.GetPool<Delete>();
+                var destroyPool = world.GetPool<Destroy>();
                 var ghostFilter = world.Filter<GhostBuilding>().End();
 
-                foreach (var ghostEntity in ghostFilter) deletePool.Add(ghostEntity);
+                foreach (var ghostEntity in ghostFilter) destroyPool.Add(ghostEntity);
                 return;
             }
 
@@ -48,10 +48,10 @@ namespace TownBuilder.Systems.Building
                 var previousPath = _gridPathfinder.Path;
                 if (previousPath.Count > 0 && previousPath[0] == pressedPosition && previousPath[^1] == pressingPosition) continue;
 
-                var deletePool = world.GetPool<Delete>();
+                var destroyPool = world.GetPool<Destroy>();
                 var ghostFilter = world.Filter<GhostBuilding>().End();
 
-                foreach (var ghostEntity in ghostFilter) deletePool.Add(ghostEntity);
+                foreach (var ghostEntity in ghostFilter) destroyPool.Add(ghostEntity);
 
                 var path = _gridPathfinder.GetAStarSearchPath(_mapGrid, pressedPosition, pressingPosition);
                 if (path.Count == 0) continue;
@@ -64,9 +64,9 @@ namespace TownBuilder.Systems.Building
                     if (!_mapGrid.IsPositionInbound(buildPosition) || !_mapGrid.IsPositionFree(buildPosition)) continue;
 
                     if (_mapGrid[buildPosition].Unpack(out var packedWorld, out var entity))
-                        if (deletePool.Has(entity))
+                        if (destroyPool.Has(entity))
                         {
-                            deletePool.Del(entity);
+                            destroyPool.Del(entity);
                             continue;
                         }
 
