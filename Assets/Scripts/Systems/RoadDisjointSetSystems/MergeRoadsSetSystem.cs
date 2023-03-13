@@ -1,14 +1,15 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using TownBuilder.Components.Building;
+using TownBuilder.Components.DisjointSet;
 using TownBuilder.Components.Grid;
-using TownBuilder.Components.RoadDisjointSet;
 using TownBuilder.Context;
-using TownBuilder.Context.DisjointSet;
+using TownBuilder.Context.LevelMapGrid;
+using TownBuilder.Context.MapRoadDisjointSet;
 
 namespace TownBuilder.Systems.RoadDisjointSetSystems
 {
-    public class NewRoadParentProcessingSystem : IEcsInitSystem, IEcsRunSystem
+    public class MergeRoadsSetSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
@@ -25,22 +26,19 @@ namespace TownBuilder.Systems.RoadDisjointSetSystems
         {
             var world = systems.GetWorld();
 
-            var roadFilter = world.Filter<NewGridBuilding>().Inc<Road>().End();
+            var mergeFilter = world.Filter<Merge>().End();
 
             var cellPool = world.GetPool<Cell>();
             var roadPool = world.GetPool<Road>();
-            var mergePool = world.GetPool<Merge>();
             
-            foreach (var newSpawnedRoad in roadFilter)
+            foreach (var mergeEntity in mergeFilter)
             {
-                _roadDisjointSet.AddNode(newSpawnedRoad);
-                
-                foreach (var neighbourPosition in _grid.GetNeighbours(cellPool.Get(newSpawnedRoad).Position))
+                foreach (var neighbourPosition in _grid.GetNeighbours(cellPool.Get(mergeEntity).Position))
                     if (_grid[neighbourPosition].Unpack(out var packedWorld, out var entity))
                     {
-                        if (!roadPool.Has(entity) || mergePool.Has(entity)) continue;
-
-                        mergePool.Add(entity);
+                        if (!roadPool.Has(entity)) continue;
+                        
+                        _roadDisjointSet.Merge(mergeEntity, entity);
                     }
             }
         }

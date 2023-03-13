@@ -4,6 +4,7 @@ using TownBuilder.Components;
 using TownBuilder.Components.Building;
 using TownBuilder.Components.Input;
 using TownBuilder.Context;
+using TownBuilder.Context.LevelMapGrid;
 
 namespace TownBuilder.Systems.Building
 {

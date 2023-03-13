@@ -3,7 +3,7 @@ using Leopotam.EcsLite;
 using TownBuilder.Components.Grid;
 using UnityEngine;
 
-namespace TownBuilder.Context
+namespace TownBuilder.Context.LevelMapGrid
 {
     public class MapGrid
     {
@@ -43,7 +43,10 @@ namespace TownBuilder.Context
             return IsPositionFree(position.x, position.y);
         }
 
-        public bool IsPositionInbound(int x, int y) => x >= 0 && y >= 0 && x < Width && y < Height;
+        public bool IsPositionInbound(int x, int y)
+        {
+            return x >= 0 && y >= 0 && x < Width && y < Height;
+        }
 
         public bool IsPositionFree(int x, int y)
         {
@@ -59,21 +62,21 @@ namespace TownBuilder.Context
             return true;
         }
 
-        public List<Vector2Int> GetRoadPathfindingNeighbours(Vector2Int position, bool isAgent)
+        public List<Vector2Int> GetPathfindingNeighbours(Vector2Int position, bool isOnRoad)
         {
             var neighboursPositions = GetNeighbours(position);
             for (var i = neighboursPositions.Count - 1; i >= 0; i--)
             {
                 var neighbourPosition = neighboursPositions[i];
 
-                if (isAgent)
+                if (isOnRoad)
                 {
-                    if (!PositionSuitableForAgent(this[neighbourPosition]))
+                    if (!IsPositionWithRoad(this[neighbourPosition]))
                         neighboursPositions.Remove(neighbourPosition);
                 }
                 else
                 {
-                    if (!PositionSuitableForRoad(this[neighbourPosition]))
+                    if (!IsPositionFreeOfStructures(this[neighbourPosition]))
                         neighboursPositions.Remove(neighbourPosition);
                 }
             }
@@ -92,14 +95,14 @@ namespace TownBuilder.Context
             return neighbours;
         }
 
-        private bool PositionSuitableForRoad(EcsPackedEntityWithWorld packedEntityWithWorld)
+        private bool IsPositionFreeOfStructures(EcsPackedEntityWithWorld packedEntityWithWorld)
         {
             if (packedEntityWithWorld.Unpack(out var world, out var entity)) return !world.GetPool<Structure>().Has(entity);
 
             return false;
         }
 
-        private bool PositionSuitableForAgent(EcsPackedEntityWithWorld packedEntityWithWorld)
+        private bool IsPositionWithRoad(EcsPackedEntityWithWorld packedEntityWithWorld)
         {
             if (packedEntityWithWorld.Unpack(out var world, out var entity)) return world.GetPool<Road>().Has(entity);
 

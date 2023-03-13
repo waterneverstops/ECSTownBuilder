@@ -2,7 +2,7 @@
 using TownBuilder.Utils.Extensions;
 using UnityEngine;
 
-namespace TownBuilder.Context
+namespace TownBuilder.Context.LevelMapGrid
 {
     public class MapGridPathfinder
     {
@@ -18,7 +18,7 @@ namespace TownBuilder.Context
 
         public IReadOnlyList<Vector2Int> Path => _path;
 
-        public List<Vector2Int> GetAStarSearchPath(MapGrid grid, Vector2Int startPosition, Vector2Int endPosition, bool isAgent = false)
+        public List<Vector2Int> GetAStarSearchPath(MapGrid grid, Vector2Int startPosition, Vector2Int endPosition, bool isOnRoad = false)
         {
             _positionsToCheck.Clear();
             _costDictionary.Clear();
@@ -36,7 +36,7 @@ namespace TownBuilder.Context
                 _positionsToCheck.Remove(current);
                 if (current.Equals(endPosition)) return GeneratePath(_parentsDictionary, current);
 
-                foreach (var neighbour in grid.GetRoadPathfindingNeighbours(current, isAgent))
+                foreach (var neighbour in grid.GetPathfindingNeighbours(current, isOnRoad))
                 {
                     var newCost = _costDictionary[current] + 1;
                     if (!_costDictionary.ContainsKey(neighbour) || newCost < _costDictionary[neighbour])

@@ -1,10 +1,12 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using TownBuilder.Components;
+using TownBuilder.Components.DisjointSet;
 using TownBuilder.Components.Grid;
 using TownBuilder.Components.Links;
 using TownBuilder.Components.Tags;
 using TownBuilder.Context;
-using TownBuilder.Context.DisjointSet;
+using TownBuilder.Context.MapRoadDisjointSet;
 using TownBuilder.MonoComponents;
 using TownBuilder.SO;
 using UnityEngine;
@@ -40,12 +42,12 @@ namespace TownBuilder.Systems.DebugSystems
                 var debugDrawer = gameObjectPool.Get(debugEntity).Value.GetComponent<DebugTextDrawer>();
                 if (debugDrawer == null) return;
 
-                var roadFilter = world.Filter<Road>().End();
+                var roadFilter = world.Filter<Road>().Exc<ReMerge>().Exc<Destroy>().End();
                 var cellPool = world.GetPool<Cell>();
 
                 foreach (var roadEntity in roadFilter)
                 {
-                    var parent = _roadDisjointSet.FindParent(_roadDisjointSet[roadEntity]).Entity;
+                    var parent = _roadDisjointSet[roadEntity].Parent.Entity;
                     
                     var position = cellPool.Get(roadEntity).Position;
                     debugDrawer.DrawDebugString(parent.ToString(),

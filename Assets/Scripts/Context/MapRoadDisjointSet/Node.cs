@@ -1,4 +1,4 @@
-namespace TownBuilder.Context
+namespace TownBuilder.Context.MapRoadDisjointSet
 {
     public class Node
     {

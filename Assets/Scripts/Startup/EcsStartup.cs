@@ -4,7 +4,7 @@ using Leopotam.EcsLite.ExtendedSystems;
 using Leopotam.EcsLite.Unity.Ugui;
 using TownBuilder.Components;
 using TownBuilder.Components.Building;
-using TownBuilder.Components.RoadDisjointSet;
+using TownBuilder.Components.DisjointSet;
 using TownBuilder.Context;
 using TownBuilder.MonoComponents;
 using TownBuilder.SO;
@@ -46,19 +46,22 @@ namespace TownBuilder.Startup
 
             _systems = new EcsSystems(_world);
             _systems
+                // Before Destroy
+                .Add(new FindRoadsToReMergeSystem())
                 // Destroy
                 .Add(new RefreshRoadNeighboursOnDestroySystem())
                 .Add(new GridDestroySystem())
                 .DelHere<Destroy>()
+                // After Destroy
+                .Add(new ReMergeRoadsSystem())
+                .DelHere<ReMerge>()
                 // Spawn
                 .Add(new PrefabSpawnSystem())
                 .DelHere<SpawnPrefabGrid>()
-                // RoadDisjointSet
-                .Add(new RecalculateSubsetSystem())
-                .DelHere<RecalculateSubset>()
-                .Add(new NewRoadParentProcessingSystem())
-                .Add(new MergeRoadSetSystem())
-                // Grid and building
+                // Road Disjoint Set
+                .Add(new RoadAddToDisjointSetSystem())
+                .Add(new MergeRoadsSetSystem())
+                // Grid And Building
                 .Add(new GridInitializationSystem())
                 .Add(new SingleBuilderSystem())
                 .Add(new PathBuilderSystem())
@@ -69,7 +72,6 @@ namespace TownBuilder.Startup
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
                 .Add(new AreaDestroyerSystem())
-                .Add(new MarkRoadToReMergeSubsetSystem())
                 // Input
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())

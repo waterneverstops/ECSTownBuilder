@@ -1,5 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using TownBuilder.Context;
+using TownBuilder.Context.LevelMapGrid;
 using TownBuilder.MonoComponents.MonoLinks.Base;
 using TownBuilder.SO;
 using UnityEngine;

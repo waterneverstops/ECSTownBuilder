@@ -3,6 +3,7 @@ using Leopotam.EcsLite.Di;
 using TownBuilder.Components.Building;
 using TownBuilder.Components.Grid;
 using TownBuilder.Context;
+using TownBuilder.Context.LevelMapGrid;
 
 namespace TownBuilder.Systems.Building
 {

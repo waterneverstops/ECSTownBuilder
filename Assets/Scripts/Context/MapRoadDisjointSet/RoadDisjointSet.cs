@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TownBuilder.Context.DisjointSet
+namespace TownBuilder.Context.MapRoadDisjointSet
 {
     public class RoadDisjointSet
     {
@@ -39,7 +39,12 @@ namespace TownBuilder.Context.DisjointSet
             Merge(_set[firstEntity], _set[secondEntity]);
         }
 
-        public void Merge(Node firstNode, Node secondNode)
+        public void RemoveNode(int entity)
+        {
+            _set.Remove(entity);
+        }
+
+        private void Merge(Node firstNode, Node secondNode)
         {
             firstNode = FindParent(firstNode);
             secondNode = FindParent(secondNode);
