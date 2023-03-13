@@ -1,10 +1,12 @@
-﻿using TownBuilder.SO;
+﻿using TownBuilder.Context.DisjointSet;
+using TownBuilder.SO;
 
 namespace TownBuilder.Context
 {
     public class LevelContext
     {
         public readonly MapGrid MapGrid;
+        public readonly RoadDisjointSet RoadDisjointSet;
         public readonly LevelDescription LevelDescription;
 
         public LevelContext(LevelDescription levelDescription)
@@ -13,6 +15,7 @@ namespace TownBuilder.Context
 
             var mapSize = LevelDescription.MapSize;
             MapGrid = new MapGrid(mapSize.x, mapSize.y);
+            RoadDisjointSet = new RoadDisjointSet();
         }
     }
 }

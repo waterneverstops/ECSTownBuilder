@@ -11,6 +11,7 @@ using TownBuilder.Systems;
 using TownBuilder.Systems.Building;
 using TownBuilder.Systems.Camera;
 using TownBuilder.Systems.DebugSystems;
+using TownBuilder.Systems.RoadDisjointSetSystems;
 using TownBuilder.Systems.UGui;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -21,8 +22,8 @@ namespace TownBuilder.Startup
 {
     public sealed class EcsStartup : MonoBehaviour
     {
-        [SerializeField] EcsUguiEmitter _uguiEmitter;
-        
+        [SerializeField] private EcsUguiEmitter _uguiEmitter;
+
         [SerializeField] private LevelDescription _levelDescription;
         [SerializeField] private PrefabSetup _prefabSetup;
         [SerializeField] private PrefabFactory _prefabFactory;
@@ -44,14 +45,17 @@ namespace TownBuilder.Startup
 
             _systems = new EcsSystems(_world);
             _systems
-                    // Delete
+                // Delete
                 .Add(new RefreshRoadNeighboursOnDeleteSystem())
                 .Add(new GridDeleteSystem())
                 .DelHere<Delete>()
-                    // Spawn
+                // Spawn
                 .Add(new PrefabSpawnSystem())
                 .DelHere<SpawnPrefabGrid>()
-                    // Grid and building
+                // DisjointSet
+                .Add(new NewRoadParentProcessingSystem())
+                .Add(new MergeRoadSetSystem())
+                // Grid and building
                 .Add(new GridInitializationSystem())
                 .Add(new SingleBuilderSystem())
                 .Add(new PathBuilderSystem())
@@ -61,7 +65,7 @@ namespace TownBuilder.Startup
                 .DelHere<NewGridBuilding>()
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
-                    // Input
+                // Input
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())

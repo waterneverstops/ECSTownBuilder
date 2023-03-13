@@ -3,6 +3,8 @@ using Leopotam.EcsLite.Di;
 using TownBuilder.Components.Grid;
 using TownBuilder.Components.Links;
 using TownBuilder.Components.Tags;
+using TownBuilder.Context;
+using TownBuilder.Context.DisjointSet;
 using TownBuilder.MonoComponents;
 using TownBuilder.SO;
 using UnityEngine;
@@ -15,9 +17,14 @@ namespace TownBuilder.Systems.DebugSystems
 
         private readonly EcsCustomInject<PrefabFactory> _prefabFactoryInjection = default;
         private readonly EcsCustomInject<PrefabSetup> _prefabSetupInjection = default;
+        private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
+        private RoadDisjointSet _roadDisjointSet;
+        
         public void Init(IEcsSystems systems)
         {
+            _roadDisjointSet = _levelContextInjection.Value.RoadDisjointSet;
+            
             _prefabFactoryInjection.Value.Spawn(_prefabSetupInjection.Value.DebugDrawerPrefab);
         }
 
@@ -34,13 +41,13 @@ namespace TownBuilder.Systems.DebugSystems
                 if (debugDrawer == null) return;
 
                 var roadFilter = world.Filter<Road>().End();
-                var roadPool = world.GetPool<Road>();
                 var cellPool = world.GetPool<Cell>();
 
                 foreach (var roadEntity in roadFilter)
                 {
+                    var parent = _roadDisjointSet.FindParent(_roadDisjointSet[roadEntity]).Entity;
+                    
                     var position = cellPool.Get(roadEntity).Position;
-                    var parent = roadPool.Get(roadEntity).Parent;
                     debugDrawer.DrawDebugString(parent.ToString(),
                         new Vector3(position.x + DrawRoadParentOffset, 0f, position.y + DrawRoadParentOffset), Color.red);
                 }
