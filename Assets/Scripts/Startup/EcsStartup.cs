@@ -65,6 +65,7 @@ namespace TownBuilder.Startup
                 .DelHere<NewGridBuilding>()
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
+                .Add(new AreaDestroyerSystem())
                 // Input
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
