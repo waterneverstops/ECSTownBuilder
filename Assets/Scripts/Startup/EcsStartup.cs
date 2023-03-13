@@ -4,6 +4,7 @@ using Leopotam.EcsLite.ExtendedSystems;
 using Leopotam.EcsLite.Unity.Ugui;
 using TownBuilder.Components;
 using TownBuilder.Components.Building;
+using TownBuilder.Components.RoadDisjointSet;
 using TownBuilder.Context;
 using TownBuilder.MonoComponents;
 using TownBuilder.SO;
@@ -53,6 +54,8 @@ namespace TownBuilder.Startup
                 .Add(new PrefabSpawnSystem())
                 .DelHere<SpawnPrefabGrid>()
                 // RoadDisjointSet
+                .Add(new RecalculateSubsetSystem())
+                .DelHere<RecalculateSubset>()
                 .Add(new NewRoadParentProcessingSystem())
                 .Add(new MergeRoadSetSystem())
                 // Grid and building
@@ -66,6 +69,7 @@ namespace TownBuilder.Startup
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
                 .Add(new AreaDestroyerSystem())
+                .Add(new MarkRoadToReMergeSubsetSystem())
                 // Input
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
