@@ -73,6 +73,7 @@ namespace TownBuilder.Startup
                 .Add(new CameraRotationSystem())
                 .Add(new MouseInputSystem())
                 .Add(new ChooseBuildModeSystem())
+                .Add(new ResetBuildModeSystem())
 
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())

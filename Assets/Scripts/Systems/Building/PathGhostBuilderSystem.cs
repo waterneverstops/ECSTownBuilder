@@ -24,8 +24,9 @@ namespace TownBuilder.Systems.Building
         {
             var world = systems.GetWorld();
 
-            var mouseReleasedFilter = world.Filter<LeftMouseReleased>().End();
-            foreach (var mouseReleasedEntity in mouseReleasedFilter)
+            var leftMouseReleasedFilter = world.Filter<LeftMouseReleased>().End();
+            var rightMousePressedFilter = world.Filter<RightMousePressed>().End();
+            if (leftMouseReleasedFilter.GetEntitiesCount() > 0 || rightMousePressedFilter.GetEntitiesCount() > 0)
             {
                 var destroyPool = world.GetPool<Destroy>();
                 var ghostFilter = world.Filter<GhostBuilding>().End();
