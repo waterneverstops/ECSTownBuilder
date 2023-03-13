@@ -29,23 +29,11 @@ namespace TownBuilder.MonoComponents
         {
             foreach (var order in _drawOrders)
             {
-                var view = SceneView.currentDrawingSceneView;
-                if (!view) return;
-
                 Handles.BeginGUI();
 
                 var restoreColor = GUI.color;
 
                 GUI.color = order.Color;
-
-                var screenPos = view.camera.WorldToScreenPoint(order.Position);
-
-                if (screenPos.y < 0 || screenPos.y > Screen.height || screenPos.x < 0 || screenPos.x > Screen.width || screenPos.z < 0)
-                {
-                    GUI.color = restoreColor;
-                    Handles.EndGUI();
-                    return;
-                }
 
                 Handles.Label(order.Position, order.Text);
                 GUI.color = restoreColor;
