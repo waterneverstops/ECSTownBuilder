@@ -1,4 +1,5 @@
-﻿using TownBuilder.SO.RoadSetup;
+﻿using System.Collections.Generic;
+using TownBuilder.SO.RoadSetup;
 using UnityEngine;
 
 namespace TownBuilder.SO
@@ -7,6 +8,7 @@ namespace TownBuilder.SO
     public class PrefabSetup : ScriptableObject
     {
         public PrefabSpawnData CameraPrefab;
+        public PrefabSpawnData DebugDrawerPrefab;
         
         public GameObject BaseHousePrefab;
 

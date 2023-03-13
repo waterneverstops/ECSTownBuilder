@@ -10,6 +10,7 @@ using TownBuilder.SO;
 using TownBuilder.Systems;
 using TownBuilder.Systems.Building;
 using TownBuilder.Systems.Camera;
+using TownBuilder.Systems.DebugSystems;
 using TownBuilder.Systems.UGui;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -70,6 +71,7 @@ namespace TownBuilder.Startup
 
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
+                .Add(new RoadParentDrawDebugSystem())
 #endif
 
                 .Inject(_inputActions,
