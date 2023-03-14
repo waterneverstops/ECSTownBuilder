@@ -12,6 +12,8 @@ namespace TownBuilder.Systems.UGui
     {
         private const string BuildRoadWidgetName = "Build_Road";
         private const string BuildHouseWidgetName = "Build_House";
+        private const string BuildHunterHutWidgetName = "Build_HunterHut";
+        private const string BuildMarketWidgetName = "Build_Market";
         private const string BuildDestroyWidgetName = "Build_Destroy";
 
         private readonly EcsCustomInject<PrefabSetup> _prefabSetupInjection = default;
@@ -37,6 +39,22 @@ namespace TownBuilder.Systems.UGui
         [Preserve]
         [EcsUguiClickEvent(BuildHouseWidgetName)]
         private void OnHouseClick(in EcsUguiClickEvent evt)
+        {
+            ref var builderComponent = ref SetupBuilderOfType<BuildArea>();
+            builderComponent.Prefab = _prefabSetup.BaseHousePrefab;
+            builderComponent.GhostPrefab = _prefabSetup.RoadPrefabSetup.GhostRoadPrefab;
+        }
+        
+        [Preserve]
+        [EcsUguiClickEvent(BuildHouseWidgetName)]
+        private void OnHunterHutClick(in EcsUguiClickEvent evt)
+        {
+            Debug.Log("House Check");
+        }
+        
+        [Preserve]
+        [EcsUguiClickEvent(BuildHouseWidgetName)]
+        private void OnMarketClick(in EcsUguiClickEvent evt)
         {
             Debug.Log("House Check");
         }
