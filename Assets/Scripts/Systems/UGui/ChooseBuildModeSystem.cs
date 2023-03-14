@@ -42,7 +42,7 @@ namespace TownBuilder.Systems.UGui
         {
             ref var builderComponent = ref SetupBuilderOfType<BuildArea>();
             builderComponent.Prefab = _prefabSetup.BaseHousePrefab;
-            builderComponent.GhostPrefab = _prefabSetup.RoadPrefabSetup.GhostRoadPrefab;
+            builderComponent.GhostPrefab = _prefabSetup.GhostHousePrefab;
         }
         
         [Preserve]

@@ -28,6 +28,7 @@ namespace TownBuilder.Startup
         [SerializeField] private LevelDescription _levelDescription;
         [SerializeField] private PrefabSetup _prefabSetup;
         [SerializeField] private PrefabFactory _prefabFactory;
+        [SerializeField] private HouseConfig _houseConfig;
 
         private EcsWorld _world;
         private IEcsSystems _systems;
@@ -89,6 +90,7 @@ namespace TownBuilder.Startup
                 .Inject(_inputActions,
                     _prefabSetup,
                     _prefabFactory,
+                    _houseConfig,
                     _levelContext)
                 .InjectUgui(_uguiEmitter)
                 .Init();

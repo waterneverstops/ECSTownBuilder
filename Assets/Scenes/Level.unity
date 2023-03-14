@@ -946,6 +946,7 @@ MonoBehaviour:
   _levelDescription: {fileID: 11400000, guid: 4f024b850adde1943be9421ba3dc79f8, type: 2}
   _prefabSetup: {fileID: 11400000, guid: 44392eaec7423c44f8d1c5037e3d41fe, type: 2}
   _prefabFactory: {fileID: 1121855146}
+  _houseConfig: {fileID: 11400000, guid: 98019061f58a79c418b90c067935fd36, type: 2}
 --- !u!4 &516609559
 Transform:
   m_ObjectHideFlags: 0

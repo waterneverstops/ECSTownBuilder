@@ -9,8 +9,12 @@ namespace TownBuilder.SO
     {
         public PrefabSpawnData CameraPrefab;
         public PrefabSpawnData DebugDrawerPrefab;
-        
+
         public GameObject BaseHousePrefab;
+        public GameObject GhostHousePrefab;
+        
+        public GameObject HunterHutPrefab;
+        public GameObject MarketPrefab;
 
         public RoadPrefabSetup RoadPrefabSetup;
     }

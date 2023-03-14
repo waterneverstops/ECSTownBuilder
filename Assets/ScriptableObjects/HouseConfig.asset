@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf37841231d04222b6676ada7a18ef74, type: 3}
+  m_Name: HouseConfig
+  m_EditorClassIdentifier: 
+  StartLevelForBigVariant: 2
+  LevelDescriptions:
+  - SmallView:
+      Prefab: {fileID: 9103780785402899497, guid: f7e40821751f48c498d88933584b6ea0,
+        type: 3}
+      Position: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+    BigView:
+      Prefab: {fileID: 0}
+      Position: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+    MaxCapacity: 1
+    FoodToUpgrade: 0
+  - SmallView:
+      Prefab: {fileID: 637443772715517860, guid: efe73f39dbf987640b6fbd627f5df329,
+        type: 3}
+      Position: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+    BigView:
+      Prefab: {fileID: 0}
+      Position: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+    MaxCapacity: 10
+    FoodToUpgrade: 5
+  - SmallView:
+      Prefab: {fileID: 3088584037219122446, guid: 4168f74a848c9544f873ce34a6a8d5f4,
+        type: 3}
+      Position: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+    BigView:
+      Prefab: {fileID: 7071235753042638534, guid: 4cdbb8a38dc536d4a924dcaa610f4638,
+        type: 3}
+      Position: {x: 0, y: 0, z: 0}
+      Rotation: {x: 0, y: 0, z: 0, w: 0}
+    MaxCapacity: 20
+    FoodToUpgrade: 5
