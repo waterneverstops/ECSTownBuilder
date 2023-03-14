@@ -23,7 +23,7 @@ MonoBehaviour:
       Prefab: {fileID: 0}
       Position: {x: 0, y: 0, z: 0}
       Rotation: {x: 0, y: 0, z: 0, w: 0}
-    MaxCapacity: 1
+    MaxCapacity: 4
     FoodToUpgrade: 0
   - SmallView:
       Prefab: {fileID: 637443772715517860, guid: efe73f39dbf987640b6fbd627f5df329,
