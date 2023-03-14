@@ -1,11 +1,12 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using TownBuilder.Components;
+using TownBuilder.Context;
 using TownBuilder.MonoComponents;
 
 namespace TownBuilder.Systems
 {
-    public class PrefabSpawnSystem : IEcsInitSystem, IEcsRunSystem
+    public class GridPrefabSpawnSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<PrefabFactory> _prefabFactoryInjection = default;
 
@@ -20,13 +21,13 @@ namespace TownBuilder.Systems
         {
             var world = systems.GetWorld();
 
-            var spawnFilter = world.Filter<SpawnPrefab>().End();
-            var spawnPool = world.GetPool<SpawnPrefab>();
+            var spawnGridFilter = world.Filter<SpawnPrefabGrid>().End();
+            var spawnGridPool = world.GetPool<SpawnPrefabGrid>();
 
-            foreach (var entity in spawnFilter)
+            foreach (var entity in spawnGridFilter)
             {
-                ref var spawnComponent = ref spawnPool.Get(entity);
-                _prefabFactory.Spawn(spawnComponent.PrefabSpawnData);
+                ref var spawnGridComponent = ref spawnGridPool.Get(entity);
+                _prefabFactory.SpawnOnGrid(spawnGridComponent.Prefab, spawnGridComponent.Position);
             }
         }
     }
