@@ -5,6 +5,7 @@ using Leopotam.EcsLite.Unity.Ugui;
 using TownBuilder.Components;
 using TownBuilder.Components.Building;
 using TownBuilder.Components.DisjointSet;
+using TownBuilder.Components.Structures;
 using TownBuilder.Context;
 using TownBuilder.MonoComponents;
 using TownBuilder.SO;
@@ -13,6 +14,7 @@ using TownBuilder.Systems.Building;
 using TownBuilder.Systems.Camera;
 using TownBuilder.Systems.DebugSystems;
 using TownBuilder.Systems.RoadDisjointSetSystems;
+using TownBuilder.Systems.Structures;
 using TownBuilder.Systems.UGui;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -44,6 +46,8 @@ namespace TownBuilder.Startup
             _levelContext = new LevelContext(_levelDescription);
 
             _world = new EcsWorld();
+            
+            _prefabFactory.Init(_world, _levelContext.MapGrid);
 
             _systems = new EcsSystems(_world);
             _systems
@@ -58,6 +62,8 @@ namespace TownBuilder.Startup
                 .DelHere<ReMerge>()
                 // Spawn
                 .Add(new PrefabSpawnSystem())
+                .DelHere<SpawnPrefab>()
+                .Add(new GridPrefabSpawnSystem())
                 .DelHere<SpawnPrefabGrid>()
                 // Road Disjoint Set
                 .Add(new RoadAddToDisjointSetSystem())
@@ -75,6 +81,11 @@ namespace TownBuilder.Startup
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
                 .Add(new AreaDestroyerSystem())
+                // Houses
+                .Add(new HouseRequestSettlerSystem())
+                .Add(new SpawnSettlerCountdownSystem())
+                .Add(new SpawnSettlerSystem())
+                .DelHere<SpawnSettlers>()
                 // Input
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())

@@ -10,6 +10,8 @@ namespace TownBuilder.SO
         public PrefabSpawnData CameraPrefab;
         public PrefabSpawnData DebugDrawerPrefab;
 
+        public GameObject SettlerCharacterPrefab;
+        
         public GameObject BaseHousePrefab;
         public GameObject GhostHousePrefab;
         
