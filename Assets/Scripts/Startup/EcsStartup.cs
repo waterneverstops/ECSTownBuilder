@@ -68,6 +68,7 @@ namespace TownBuilder.Startup
                 .Add(new PathBuilderSystem())
                 .Add(new PathGhostBuilderSystem())
                 .Add(new AreaBuilderSystem())
+                .Add(new GhostCleanUpSystem())
                 .Add(new NewRoadProcessingSystem())
                 .DelHere<NewGridBuilding>()
                 .Add(new RoadViewRefreshSystem())
