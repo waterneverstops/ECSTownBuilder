@@ -46,17 +46,21 @@ namespace TownBuilder.Systems.UGui
         }
         
         [Preserve]
-        [EcsUguiClickEvent(BuildHouseWidgetName)]
+        [EcsUguiClickEvent(BuildHunterHutWidgetName)]
         private void OnHunterHutClick(in EcsUguiClickEvent evt)
         {
-            Debug.Log("House Check");
+            ref var builderComponent = ref SetupBuilderOfType<BuildSingle>();
+            builderComponent.Prefab = _prefabSetup.HunterHutPrefab;
+            builderComponent.GhostPrefab = null;
         }
         
         [Preserve]
-        [EcsUguiClickEvent(BuildHouseWidgetName)]
+        [EcsUguiClickEvent(BuildMarketWidgetName)]
         private void OnMarketClick(in EcsUguiClickEvent evt)
         {
-            Debug.Log("House Check");
+            ref var builderComponent = ref SetupBuilderOfType<BuildSingle>();
+            builderComponent.Prefab = _prefabSetup.MarketPrefab;
+            builderComponent.GhostPrefab = null;
         }
         
         [Preserve]
