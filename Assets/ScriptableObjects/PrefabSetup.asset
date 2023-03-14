@@ -24,4 +24,10 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 0}
   BaseHousePrefab: {fileID: 4943371885531094842, guid: cc576c2cdd7e5c24992f46b63fbfde50,
     type: 3}
+  GhostHousePrefab: {fileID: 1375044854968583385, guid: c047f2aeafb9e724299e2c51013552c1,
+    type: 3}
+  HunterHutPrefab: {fileID: 1714752695875268424, guid: ffc60dee4cb5e4d4a95cedecbc198353,
+    type: 3}
+  MarketPrefab: {fileID: 7791974360646291964, guid: 4eb9e8171f2026e4db150d876f08df57,
+    type: 3}
   RoadPrefabSetup: {fileID: 11400000, guid: 431692a1d3bb4e84cae4f99c8a3d7c50, type: 2}
