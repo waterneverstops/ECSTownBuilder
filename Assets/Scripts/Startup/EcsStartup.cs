@@ -88,12 +88,14 @@ namespace TownBuilder.Startup
                 .Add(new SpawnSettlerCountdownSystem())
                 .Add(new SpawnSettlerSystem())
                 .DelHere<SpawnSettlers>()
+                .Add(new PopulateHouseSystem())
                 // Character
                 .Add(new GenerateSettlerPathSystem())
                 .Add(new FollowPathSystem())
                 .Add(new LookAtMoveDirectionSystem())
                 .Add(new MoveGameObjectSystem())
                 .DelHere<Velocity>()
+                .Add(new SettlerEnterSystem())
                 // Input
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
