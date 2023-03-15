@@ -1,4 +1,4 @@
-﻿namespace TownBuilder.Components.Structures
+﻿namespace TownBuilder.Components.Characters
 {
     public struct SpawnSettlerCountdown
     {

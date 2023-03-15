@@ -2,8 +2,8 @@
 
 namespace TownBuilder.Components
 {
-    public class MoveDirection
+    public struct Velocity
     {
-        public Vector3 Direction;
+        public Vector3 Vector;
     }
 }
