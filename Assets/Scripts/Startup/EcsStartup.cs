@@ -4,6 +4,7 @@ using Leopotam.EcsLite.ExtendedSystems;
 using Leopotam.EcsLite.Unity.Ugui;
 using TownBuilder.Components;
 using TownBuilder.Components.Building;
+using TownBuilder.Components.Characters;
 using TownBuilder.Components.DisjointSet;
 using TownBuilder.Components.Structures;
 using TownBuilder.Context;
@@ -12,6 +13,7 @@ using TownBuilder.SO;
 using TownBuilder.Systems;
 using TownBuilder.Systems.Building;
 using TownBuilder.Systems.Camera;
+using TownBuilder.Systems.Characters;
 using TownBuilder.Systems.DebugSystems;
 using TownBuilder.Systems.RoadDisjointSetSystems;
 using TownBuilder.Systems.Structures;
@@ -86,6 +88,11 @@ namespace TownBuilder.Startup
                 .Add(new SpawnSettlerCountdownSystem())
                 .Add(new SpawnSettlerSystem())
                 .DelHere<SpawnSettlers>()
+                // Character
+                .Add(new GenerateSettlerPathSystem())
+                .Add(new FollowPathSystem())
+                .Add(new MoveGameObjectSystem())
+                .DelHere<Velocity>()
                 // Input
                 .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())

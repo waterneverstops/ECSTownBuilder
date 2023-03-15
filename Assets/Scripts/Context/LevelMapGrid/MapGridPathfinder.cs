@@ -18,7 +18,8 @@ namespace TownBuilder.Context.LevelMapGrid
 
         public IReadOnlyList<Vector2Int> Path => _path;
 
-        public List<Vector2Int> GetAStarSearchPath(MapGrid grid, Vector2Int startPosition, Vector2Int endPosition, bool isOnRoad = false)
+        public List<Vector2Int> GetAStarSearchPath(MapGrid grid, Vector2Int startPosition, Vector2Int endPosition,
+            PathType pathType = PathType.NonStructures)
         {
             _positionsToCheck.Clear();
             _costDictionary.Clear();
@@ -36,7 +37,7 @@ namespace TownBuilder.Context.LevelMapGrid
                 _positionsToCheck.Remove(current);
                 if (current.Equals(endPosition)) return GeneratePath(_parentsDictionary, current);
 
-                foreach (var neighbour in grid.GetPathfindingNeighbours(current, isOnRoad))
+                foreach (var neighbour in grid.GetPathfindingNeighbours(current, pathType))
                 {
                     var newCost = _costDictionary[current] + 1;
                     if (!_costDictionary.ContainsKey(neighbour) || newCost < _costDictionary[neighbour])

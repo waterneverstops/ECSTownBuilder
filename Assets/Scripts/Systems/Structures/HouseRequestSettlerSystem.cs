@@ -21,7 +21,7 @@ namespace TownBuilder.Systems.Structures
         {
             var world = systems.GetWorld();
 
-            var houseFilter = world.Filter<House>().Inc<BuildingLevel>().Exc<RequestedSettlers>().Exc<AwaitingSettlers>().End();
+            var houseFilter = world.Filter<House>().Inc<BuildingLevel>().Exc<RequestedSettlers>().End();
 
             var housePool = world.GetPool<House>();
             var levelPool = world.GetPool<BuildingLevel>();

@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace TownBuilder.Components.Characters
 {
-    public struct Path
+    public struct PathEnd
     {
-        public List<Vector2Int> Points;
+        public Vector2Int EndPosition;
     }
 }

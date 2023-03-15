@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Leopotam.EcsLite;
 using TownBuilder.Components.Grid;
@@ -62,22 +63,27 @@ namespace TownBuilder.Context.LevelMapGrid
             return true;
         }
 
-        public List<Vector2Int> GetPathfindingNeighbours(Vector2Int position, bool isOnRoad)
+        public List<Vector2Int> GetPathfindingNeighbours(Vector2Int position, PathType pathType)
         {
             var neighboursPositions = GetNeighbours(position);
             for (var i = neighboursPositions.Count - 1; i >= 0; i--)
             {
                 var neighbourPosition = neighboursPositions[i];
 
-                if (isOnRoad)
+                switch (pathType)
                 {
-                    if (!IsPositionWithRoad(this[neighbourPosition]))
-                        neighboursPositions.Remove(neighbourPosition);
-                }
-                else
-                {
-                    if (!IsPositionFreeOfStructures(this[neighbourPosition]))
-                        neighboursPositions.Remove(neighbourPosition);
+                    case PathType.NonStructures:
+                    {
+                        if (!IsPositionFreeOfStructures(this[neighbourPosition]))
+                            neighboursPositions.Remove(neighbourPosition);
+                        break;
+                    }
+                    case PathType.Road:
+                    {
+                        if (!IsPositionOnRoad(this[neighbourPosition]))
+                            neighboursPositions.Remove(neighbourPosition);
+                        break;
+                    }
                 }
             }
 
@@ -102,7 +108,7 @@ namespace TownBuilder.Context.LevelMapGrid
             return false;
         }
 
-        private bool IsPositionWithRoad(EcsPackedEntityWithWorld packedEntityWithWorld)
+        private bool IsPositionOnRoad(EcsPackedEntityWithWorld packedEntityWithWorld)
         {
             if (packedEntityWithWorld.Unpack(out var world, out var entity)) return world.GetPool<Road>().Has(entity);
 

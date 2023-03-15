@@ -14,7 +14,7 @@ namespace TownBuilder.Context.LevelMapGrid
             _stackForSearch.Clear();
             _visited.Clear();
 
-            foreach (var position in mapGrid.GetPathfindingNeighbours(start, true)) _stackForSearch.Push(position);
+            foreach (var position in mapGrid.GetPathfindingNeighbours(start, PathType.Road)) _stackForSearch.Push(position);
 
             _visited.Add(GetEntity(mapGrid[start]));
 
@@ -26,7 +26,7 @@ namespace TownBuilder.Context.LevelMapGrid
                 if (!_visited.Contains(entity))
                 {
                     _visited.Add(entity);
-                    foreach (var newPosition in mapGrid.GetPathfindingNeighbours(position, true)) _stackForSearch.Push(newPosition);
+                    foreach (var newPosition in mapGrid.GetPathfindingNeighbours(position, PathType.Road)) _stackForSearch.Push(newPosition);
                 }
             }
 

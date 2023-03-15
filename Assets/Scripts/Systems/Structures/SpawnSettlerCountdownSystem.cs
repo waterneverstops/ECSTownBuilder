@@ -1,12 +1,12 @@
 ﻿using Leopotam.EcsLite;
-using TownBuilder.Components.Structures;
+using TownBuilder.Components.Characters;
 using UnityEngine;
 
 namespace TownBuilder.Systems.Structures
 {
     public class SpawnSettlerCountdownSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private const float SettlerSpawnCooldown = 1f;
+        private const float SettlerSpawnCooldown = 0.25f;
         
         public void Init(IEcsSystems systems)
         {
