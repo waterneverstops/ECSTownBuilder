@@ -11,6 +11,7 @@ namespace TownBuilder.MonoComponents
     {
         private const string DecorLayerName = "Decor";
         private const string GridObjectsParentName = "Grid";
+        private const string OtherObjectsParentName = "Other";
 
         private readonly Collider[] _results = new Collider[10];
         
@@ -18,6 +19,7 @@ namespace TownBuilder.MonoComponents
         private MapGrid _mapGrid;
 
         private Transform _gridParentTransform;
+        private Transform _otherParentTransform;
 
         private LayerMask _decorMask;
 
@@ -27,6 +29,7 @@ namespace TownBuilder.MonoComponents
             _mapGrid = mapGrid;
 
             _gridParentTransform = new GameObject(GridObjectsParentName).transform;
+            _otherParentTransform = new GameObject(OtherObjectsParentName).transform;
 
             _decorMask = LayerMask.GetMask(DecorLayerName);
         }
@@ -34,6 +37,7 @@ namespace TownBuilder.MonoComponents
         public void Spawn(PrefabSpawnData spawnData)
         {
             var newObject = Instantiate(spawnData.Prefab, spawnData.Position, spawnData.Rotation);
+            newObject.transform.parent = _otherParentTransform;
 
             var links = newObject.GetComponent<MonoEntityLinks>();
             if (links != null)
