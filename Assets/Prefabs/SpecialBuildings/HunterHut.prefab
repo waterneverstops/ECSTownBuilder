@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -779641165943514813}
   - component: {fileID: -4937118265511153287}
   - component: {fileID: 3664572374626124476}
+  - component: {fileID: 7279005582932691740}
   m_Layer: 0
   m_Name: HunterHut
   m_TagString: Untagged
@@ -95,6 +96,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b4834f4624047e1ae9abd1ba82cb51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7279005582932691740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714752695875268424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c95ee69b4c64b6bae53d575f8ab7e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8199083188716766059
