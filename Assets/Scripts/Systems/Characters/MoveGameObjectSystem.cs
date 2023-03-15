@@ -20,11 +20,13 @@ namespace TownBuilder.Systems.Characters
             {
                 var gameObject = gameObjectPool.Get(velocityEntity).Value;
                 var velocity = velocityPool.Get(velocityEntity).Vector;
-                
-                gameObject.transform.Translate(velocity);
+
+                var position = gameObject.transform.position;
+                position += velocity;
+                gameObject.transform.position = position;
 
                 ref var movableComponent = ref movablePool.Get(velocityEntity);
-                movableComponent.Position = gameObject.transform.position;
+                movableComponent.Position = position;
             }
         }
     }

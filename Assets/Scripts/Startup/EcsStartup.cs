@@ -91,6 +91,7 @@ namespace TownBuilder.Startup
                 // Character
                 .Add(new GenerateSettlerPathSystem())
                 .Add(new FollowPathSystem())
+                .Add(new LookAtMoveDirectionSystem())
                 .Add(new MoveGameObjectSystem())
                 .DelHere<Velocity>()
                 // Input
