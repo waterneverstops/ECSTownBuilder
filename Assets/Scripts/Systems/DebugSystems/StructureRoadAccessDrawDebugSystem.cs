@@ -1,15 +1,9 @@
 ﻿using Leopotam.EcsLite;
-using Leopotam.EcsLite.Di;
-using TownBuilder.Components;
-using TownBuilder.Components.DisjointSet;
 using TownBuilder.Components.Grid;
 using TownBuilder.Components.Links;
 using TownBuilder.Components.Structures;
 using TownBuilder.Components.Tags;
-using TownBuilder.Context;
-using TownBuilder.Context.MapRoadDisjointSet;
 using TownBuilder.MonoComponents;
-using TownBuilder.SO;
 using UnityEngine;
 
 namespace TownBuilder.Systems.DebugSystems
@@ -31,16 +25,19 @@ namespace TownBuilder.Systems.DebugSystems
                 if (debugDrawer == null) return;
 
                 var structureFilter = world.Filter<Structure>().Inc<RoadAccess>().End();
-                
+
                 var cellPool = world.GetPool<Cell>();
                 var accessPool = world.GetPool<RoadAccess>();
 
                 foreach (var structureEntity in structureFilter)
                 {
+                    if (accessPool.Get(structureEntity).SubsetParents.Count == 0) return;
 
-                    /*var position = cellPool.Get(structureEntity).Position;
-                    debugDrawer.DrawDebugString(parent.ToString(),
-                        new Vector3(position.x + DrawAccessParentOffset, 0f, position.y + DrawAccessParentOffset), Color.red);*/
+                    var parentNames = string.Join(", ", accessPool.Get(structureEntity).SubsetParents);
+
+                    var position = cellPool.Get(structureEntity).Position;
+                    debugDrawer.DrawDebugString(parentNames,
+                        new Vector3(position.x + DrawAccessParentOffset, 0f, position.y + DrawAccessParentOffset), Color.red);
                 }
             }
         }
