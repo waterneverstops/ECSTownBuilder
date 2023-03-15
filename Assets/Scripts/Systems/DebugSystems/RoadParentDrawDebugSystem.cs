@@ -8,7 +8,6 @@ using TownBuilder.Components.Tags;
 using TownBuilder.Context;
 using TownBuilder.Context.MapRoadDisjointSet;
 using TownBuilder.MonoComponents;
-using TownBuilder.SO;
 using UnityEngine;
 
 namespace TownBuilder.Systems.DebugSystems
@@ -17,8 +16,6 @@ namespace TownBuilder.Systems.DebugSystems
     {
         private const float DrawRoadParentOffset = 0.5f;
 
-        private readonly EcsCustomInject<PrefabFactory> _prefabFactoryInjection = default;
-        private readonly EcsCustomInject<PrefabSetup> _prefabSetupInjection = default;
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
         private RoadDisjointSet _roadDisjointSet;
@@ -26,8 +23,6 @@ namespace TownBuilder.Systems.DebugSystems
         public void Init(IEcsSystems systems)
         {
             _roadDisjointSet = _levelContextInjection.Value.RoadDisjointSet;
-            
-            _prefabFactoryInjection.Value.Spawn(_prefabSetupInjection.Value.DebugDrawerPrefab);
         }
 
         public void Run(IEcsSystems systems)

@@ -17,21 +17,28 @@ namespace TownBuilder.MonoComponents
         
         private EcsWorld _world;
         private MapGrid _mapGrid;
+        private PrefabSetup _prefabSetup;
 
         private Transform _gridParentTransform;
         private Transform _otherParentTransform;
 
         private LayerMask _decorMask;
 
-        public void Init(EcsWorld world, MapGrid mapGrid)
+        public void Init(EcsWorld world, MapGrid mapGrid, PrefabSetup prefabSetup)
         {
             _world = world;
             _mapGrid = mapGrid;
+            _prefabSetup = prefabSetup;
 
             _gridParentTransform = new GameObject(GridObjectsParentName).transform;
             _otherParentTransform = new GameObject(OtherObjectsParentName).transform;
 
             _decorMask = LayerMask.GetMask(DecorLayerName);
+
+            foreach (var spawnData in _prefabSetup.SpawnOnInit)
+            {
+                Spawn(spawnData);
+            }
         }
 
         public void Spawn(PrefabSpawnData spawnData)

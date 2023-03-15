@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d031e67e5f483288a22e513a42b086, type: 3}
   m_Name: PrefabSetup
   m_EditorClassIdentifier: 
-  CameraPrefab:
-    Prefab: {fileID: 3318724538229875976, guid: 66d9fd3cf5ff3944badd384d46dd0083,
+  SpawnOnInit:
+  - Prefab: {fileID: 3318724538229875976, guid: 66d9fd3cf5ff3944badd384d46dd0083,
       type: 3}
-    Position: {x: 5, y: 0, z: 5}
+    Position: {x: 2, y: 3.5, z: 2.5}
     Rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
-  DebugDrawerPrefab:
-    Prefab: {fileID: 6745459432525976602, guid: 8e9cdcf99c3d25c48b9d318fb57230e2,
+  - Prefab: {fileID: 6745459432525976602, guid: 8e9cdcf99c3d25c48b9d318fb57230e2,
       type: 3}
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 0}

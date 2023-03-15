@@ -49,7 +49,7 @@ namespace TownBuilder.Startup
 
             _world = new EcsWorld();
             
-            _prefabFactory.Init(_world, _levelContext.MapGrid);
+            _prefabFactory.Init(_world, _levelContext.MapGrid, _prefabSetup);
 
             _systems = new EcsSystems(_world);
             _systems
@@ -57,6 +57,7 @@ namespace TownBuilder.Startup
                 .Add(new FindRoadsToReMergeSystem())
                 // Destroy
                 .Add(new RefreshRoadNeighboursOnDestroySystem())
+                .Add(new RefreshRoadAccessOnDestroySystem())
                 .Add(new GridDestroySystem())
                 .DelHere<Destroy>()
                 // After Destroy
@@ -78,7 +79,8 @@ namespace TownBuilder.Startup
                 .Add(new AreaBuilderSystem())
                 .Add(new AreaGhostBuilderSystem())
                 .Add(new GhostCleanUpSystem())
-                .Add(new NewRoadProcessingSystem())
+                .Add(new NewRoadViewProcessingSystem())
+                .Add(new NewRoadAccessProcessingSystem())
                 .DelHere<NewGridBuilding>()
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
@@ -97,7 +99,6 @@ namespace TownBuilder.Startup
                 .DelHere<Velocity>()
                 .Add(new SettlerEnterSystem())
                 // Input
-                .Add(new CameraSpawnSystem())
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())
                 .Add(new CameraRotationSystem())
@@ -108,6 +109,7 @@ namespace TownBuilder.Startup
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
                 .Add(new RoadParentDrawDebugSystem())
+                .Add(new StructureRoadAccessDrawDebugSystem())
 #endif
 
                 .Inject(_inputActions,
