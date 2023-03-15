@@ -23,6 +23,11 @@ namespace TownBuilder.Context.MapRoadDisjointSet
             _set.Add(entity, node);
         }
 
+        public Node FindParent(int entity)
+        {
+            return FindParent(_set[entity]);
+        }
+
         public Node FindParent(Node node)
         {
             while (node.Parent != node)
