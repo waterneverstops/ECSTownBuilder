@@ -7,7 +7,7 @@ using TownBuilder.Context.LevelMapGrid;
 
 namespace TownBuilder.Systems.Building
 {
-    public class NewRoadProcessingSystem : IEcsInitSystem, IEcsRunSystem
+    public class NewRoadViewProcessingSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 

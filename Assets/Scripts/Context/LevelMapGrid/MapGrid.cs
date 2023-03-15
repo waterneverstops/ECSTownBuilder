@@ -90,13 +90,20 @@ namespace TownBuilder.Context.LevelMapGrid
             return neighboursPositions;
         }
 
-        public List<Vector2Int> GetNeighbours(Vector2Int position)
+        public List<Vector2Int> GetNeighbours(Vector2Int position, bool isTwoCellLength = false)
         {
             var neighbours = new List<Vector2Int>();
             if (position.x > 0) neighbours.Add(new Vector2Int(position.x - 1, position.y));
             if (position.x < Width - 1) neighbours.Add(new Vector2Int(position.x + 1, position.y));
             if (position.y > 0) neighbours.Add(new Vector2Int(position.x, position.y - 1));
             if (position.y < Height - 1) neighbours.Add(new Vector2Int(position.x, position.y + 1));
+
+            if (!isTwoCellLength) return neighbours;
+            
+            if (position.x > 1) neighbours.Add(new Vector2Int(position.x - 2, position.y));
+            if (position.x < Width - 2) neighbours.Add(new Vector2Int(position.x + 2, position.y));
+            if (position.y > 1) neighbours.Add(new Vector2Int(position.x, position.y - 2));
+            if (position.y < Height - 2) neighbours.Add(new Vector2Int(position.x, position.y + 2));
 
             return neighbours;
         }
