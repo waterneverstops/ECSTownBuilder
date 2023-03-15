@@ -2,6 +2,7 @@
 using Leopotam.EcsLite.Di;
 using TownBuilder.Components.DisjointSet;
 using TownBuilder.Components.Grid;
+using TownBuilder.Components.Structures;
 using TownBuilder.Context;
 using TownBuilder.Context.LevelMapGrid;
 using TownBuilder.Context.MapRoadDisjointSet;
@@ -30,10 +31,12 @@ namespace TownBuilder.Systems.RoadDisjointSetSystems
             var mergeFilter = world.Filter<ReMerge>().Inc<Road>().End();
 
             var cellPool = world.GetPool<Cell>();
+            var refreshAccessPool = world.GetPool<RoadRefreshNeighbourAccess>();
 
             foreach (var mergeEntity in mergeFilter)
             {
                 var startNode = _roadDisjointSet[mergeEntity];
+                if (!refreshAccessPool.Has(mergeEntity)) refreshAccessPool.Add(mergeEntity);
                 if (startNode.Parent != null) continue;
 
                 startNode.Parent = startNode;
@@ -42,6 +45,7 @@ namespace TownBuilder.Systems.RoadDisjointSetSystems
                 {
                     _roadDisjointSet[entity].Parent = startNode;
                     _roadDisjointSet[entity].Size = 1;
+                    if (!refreshAccessPool.Has(entity)) refreshAccessPool.Add(entity);
                 }
             }
         }

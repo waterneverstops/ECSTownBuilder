@@ -1,43 +1,43 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using TownBuilder.Components.Building;
 using TownBuilder.Components.DisjointSet;
 using TownBuilder.Components.Grid;
+using TownBuilder.Components.Structures;
 using TownBuilder.Context;
 using TownBuilder.Context.LevelMapGrid;
-using TownBuilder.Context.MapRoadDisjointSet;
 
-namespace TownBuilder.Systems.RoadDisjointSetSystems
+namespace TownBuilder.Systems.Building
 {
-    public class MergeRoadsSetSystem : IEcsInitSystem, IEcsRunSystem
+    public class RoadRefreshNeighbourAccessSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
         private MapGrid _grid;
-        private RoadDisjointSet _roadDisjointSet;
 
         public void Init(IEcsSystems systems)
         {
             _grid = _levelContextInjection.Value.MapGrid;
-            _roadDisjointSet = _levelContextInjection.Value.RoadDisjointSet;
         }
 
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
 
-            var mergeFilter = world.Filter<Merge>().End();
+            var refreshFilter = world.Filter<RoadRefreshNeighbourAccess>().End();
 
+            var refreshPool = world.GetPool<RefreshRoadAccess>();
             var cellPool = world.GetPool<Cell>();
-            var roadPool = world.GetPool<Road>();
-            
-            foreach (var mergeEntity in mergeFilter)
+            var structurePool = world.GetPool<Structure>();
+
+            foreach (var refreshEntity in refreshFilter)
             {
-                foreach (var neighbourPosition in _grid.GetNeighbours(cellPool.Get(mergeEntity).Position))
+                foreach (var neighbourPosition in _grid.GetNeighbours(cellPool.Get(refreshEntity).Position, true))
                     if (_grid[neighbourPosition].Unpack(out var packedWorld, out var entity))
                     {
-                        if (!roadPool.Has(entity)) continue;
-                        
-                        _roadDisjointSet.Merge(mergeEntity, entity);
+                        if (!structurePool.Has(entity) || refreshPool.Has(entity)) continue;
+
+                        refreshPool.Add(entity);
                     }
             }
         }

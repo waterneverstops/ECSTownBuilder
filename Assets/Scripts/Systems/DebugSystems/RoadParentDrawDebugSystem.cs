@@ -42,7 +42,7 @@ namespace TownBuilder.Systems.DebugSystems
 
                 foreach (var roadEntity in roadFilter)
                 {
-                    var parent = _roadDisjointSet[roadEntity].Parent.Entity;
+                    var parent = _roadDisjointSet.FindParent(roadEntity).Entity;
                     
                     var position = cellPool.Get(roadEntity).Position;
                     debugDrawer.DrawDebugString(parent.ToString(),

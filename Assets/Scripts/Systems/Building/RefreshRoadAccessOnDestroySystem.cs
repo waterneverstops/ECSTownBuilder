@@ -24,20 +24,15 @@ namespace TownBuilder.Systems.Building
         {
             var world = systems.GetWorld();
 
-            var refreshFilter = world.Filter<Destroy>().Inc<Road>().End();
+            var destroyFilter = world.Filter<Destroy>().Inc<Road>().End();
 
-            var refreshPool = world.GetPool<RefreshRoadAccess>();
-            var cellPool = world.GetPool<Cell>();
-            var structurePool = world.GetPool<Structure>();
+            var refreshPool = world.GetPool<RoadRefreshNeighbourAccess>();
 
-            foreach (var refreshEntity in refreshFilter)
-            foreach (var neighbourPosition in _grid.GetNeighbours(cellPool.Get(refreshEntity).Position, true))
-                if (_grid[neighbourPosition].Unpack(out world, out var entity))
-                {
-                    if (!structurePool.Has(entity) || refreshPool.Has(entity)) continue;
-
-                    refreshPool.Add(entity);
-                }
+            foreach (var newSpawnedRoad in destroyFilter)
+            {
+                if (refreshPool.Has(newSpawnedRoad)) continue;
+                refreshPool.Add(newSpawnedRoad);
+            }
         }
     }
 }

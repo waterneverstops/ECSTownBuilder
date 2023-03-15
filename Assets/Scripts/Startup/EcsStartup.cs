@@ -55,9 +55,11 @@ namespace TownBuilder.Startup
             _systems
                 // Before Destroy
                 .Add(new FindRoadsToReMergeSystem())
+                .Add(new RefreshRoadAccessOnDestroySystem())
+                .Add(new RoadRefreshNeighbourAccessSystem())
+                .DelHere<RoadRefreshNeighbourAccess>()
                 // Destroy
                 .Add(new RefreshRoadNeighboursOnDestroySystem())
-                .Add(new RefreshRoadAccessOnDestroySystem())
                 .Add(new GridDestroySystem())
                 .DelHere<Destroy>()
                 // After Destroy
@@ -70,7 +72,9 @@ namespace TownBuilder.Startup
                 .DelHere<SpawnPrefabGrid>()
                 // Road Disjoint Set
                 .Add(new RoadAddToDisjointSetSystem())
+                .Add(new MergeRoadsRefreshAccessSystem())
                 .Add(new MergeRoadsSetSystem())
+                .DelHere<Merge>()
                 // Grid And Building
                 .Add(new GridInitializationSystem())
                 .Add(new SingleBuilderSystem())
@@ -81,10 +85,14 @@ namespace TownBuilder.Startup
                 .Add(new GhostCleanUpSystem())
                 .Add(new NewRoadViewProcessingSystem())
                 .Add(new NewRoadAccessProcessingSystem())
+                .Add(new NewStructureAccessProcessingSystem())
                 .DelHere<NewGridBuilding>()
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
                 .Add(new AreaDestroyerSystem())
+                //Structures
+                .Add(new RefreshRoadAccessSystem())
+                .DelHere<RefreshRoadAccess>()
                 // Houses
                 .Add(new HouseRequestSettlerSystem())
                 .Add(new SpawnSettlerCountdownSystem())

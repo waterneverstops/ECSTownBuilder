@@ -25,19 +25,12 @@ namespace TownBuilder.Systems.Building
 
             var newSpawnedRoadsFilter = world.Filter<NewGridBuilding>().Inc<Road>().End();
 
-            var refreshPool = world.GetPool<RefreshRoadAccess>();
-            var cellPool = world.GetPool<Cell>();
-            var structurePool = world.GetPool<Structure>();
+            var refreshPool = world.GetPool<RoadRefreshNeighbourAccess>();
 
             foreach (var newSpawnedRoad in newSpawnedRoadsFilter)
             {
-                foreach (var neighbourPosition in _grid.GetNeighbours(cellPool.Get(newSpawnedRoad).Position, true))
-                    if (_grid[neighbourPosition].Unpack(out var packedWorld, out var entity))
-                    {
-                        if (!structurePool.Has(entity) || refreshPool.Has(entity)) continue;
-
-                        refreshPool.Add(entity);
-                    }
+                if (refreshPool.Has(newSpawnedRoad)) continue;
+                refreshPool.Add(newSpawnedRoad);
             }
         }
     }
