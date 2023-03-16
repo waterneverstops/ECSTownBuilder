@@ -62,6 +62,7 @@ namespace TownBuilder.Startup
                 // Destroy
                 .Add(new RefreshRoadNeighboursOnDestroySystem())
                 .Add(new GridDestroySystem())
+                .Add(new GameObjectDestroySystem())
                 .DelHere<Destroy>()
                 // After Destroy
                 .Add(new ReMergeRoadsSystem())

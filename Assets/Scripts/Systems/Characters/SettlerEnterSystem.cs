@@ -30,14 +30,11 @@ namespace TownBuilder.Systems.Characters
             var gameObjectPool = world.GetPool<GameObjectLink>();
             var pathEndPool = world.GetPool<PathEnd>();
             var moveInPool = world.GetPool<MoveSettlerIn>();
+            var destroyPool = world.GetPool<Destroy>();
             
             foreach (var pathEndEntity in pathEndFilter)
             {
                 var endPosition = pathEndPool.Get(pathEndEntity).EndPosition;
-                
-                var gameObject = gameObjectPool.Get(pathEndEntity).Value;
-                Object.Destroy(gameObject);
-                world.DelEntity(pathEndEntity);
 
                 var housePackedEntity = _mapGrid[endPosition];
                 if (housePackedEntity.Unpack(out var packedWorld, out var entity))
@@ -48,6 +45,8 @@ namespace TownBuilder.Systems.Characters
 
                     moveInComponent.Amount++;
                 }
+
+                destroyPool.Add(pathEndEntity);
             }
         }
     }
