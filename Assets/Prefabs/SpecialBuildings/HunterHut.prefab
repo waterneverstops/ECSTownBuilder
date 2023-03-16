@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7279005582932691740}
   - component: {fileID: 8240168038035804223}
   - component: {fileID: 6778597908262569930}
+  - component: {fileID: -2630612627804250145}
   m_Layer: 0
   m_Name: HunterHut
   m_TagString: Untagged
@@ -138,6 +139,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxFood: 400
+--- !u!114 &-2630612627804250145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714752695875268424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438a690b245840d4bdfe921e75ec51cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8199083188716766059
 GameObject:
   m_ObjectHideFlags: 0

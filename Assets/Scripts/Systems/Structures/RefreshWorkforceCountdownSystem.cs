@@ -4,27 +4,27 @@ using UnityEngine;
 
 namespace TownBuilder.Systems.Structures
 {
-    public class HunterWorkCountdownSystem : IEcsInitSystem, IEcsRunSystem
+    public class RefreshWorkforceCountdownSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private const float HunterWorkCooldown = 2f;
+        private const float RefreshWorkforceCooldown = 1.1f;
         
         public void Init(IEcsSystems systems)
         {
             var world = systems.GetWorld();
             var entity = world.NewEntity();
-            var countdownPool = world.GetPool<HunterWorkCountdown>();
+            var countdownPool = world.GetPool<RefreshWorkforceCountdown>();
             ref var component = ref countdownPool.Add(entity);
-            component.Countdown = HunterWorkCooldown;
+            component.Countdown = RefreshWorkforceCooldown;
         }
 
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
 
-            var countdownFilter = world.Filter<HunterWorkCountdown>().End();
+            var countdownFilter = world.Filter<RefreshWorkforceCountdown>().End();
 
-            var countdownPool = world.GetPool<HunterWorkCountdown>();
-            var workPool = world.GetPool<HunterWork>();
+            var countdownPool = world.GetPool<RefreshWorkforceCountdown>();
+            var refreshPool = world.GetPool<RefreshWorkforce>();
             
             foreach (var countdownEntity in countdownFilter)
             {
@@ -32,8 +32,8 @@ namespace TownBuilder.Systems.Structures
                 countdownComponent.Countdown -= Time.deltaTime;
                 if (countdownComponent.Countdown <= 0f)
                 {
-                    countdownComponent.Countdown = HunterWorkCooldown;
-                    workPool.Add(countdownEntity);
+                    countdownComponent.Countdown = RefreshWorkforceCooldown;
+                    refreshPool.Add(countdownEntity);
                 }
             }
         }

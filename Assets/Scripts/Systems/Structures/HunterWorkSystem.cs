@@ -35,7 +35,7 @@ namespace TownBuilder.Systems.Structures
             var workFilter = world.Filter<HunterWork>().End();
             if (workFilter.GetEntitiesCount() == 0) return;
 
-            var hunterFilter = world.Filter<HunterHut>().Inc<RoadAccess>().Exc<WorkInProgress>().End();
+            var hunterFilter = world.Filter<HunterHut>().Inc<RoadAccess>().Inc<HasWorkforce>().Exc<WorkInProgress>().End();
             var foodFilter = world.Filter<FoodSource>().End();
 
             var cellPool = world.GetPool<Cell>();
