@@ -56,8 +56,8 @@ namespace TownBuilder.Startup
                 // Before Destroy
                 .Add(new FindRoadsToReMergeSystem())
                 .Add(new RefreshRoadAccessOnDestroySystem())
-                .Add(new RoadRefreshNeighbourAccessSystem())
-                .DelHere<RoadRefreshNeighbourAccess>()
+                .Add(new TriggerRefreshRoadAccessSystem())
+                .DelHere<TriggerRefreshRoadAccess>()
                 // Destroy
                 .Add(new RefreshRoadNeighboursOnDestroySystem())
                 .Add(new GridDestroySystem())

@@ -25,7 +25,7 @@ namespace TownBuilder.Systems.Building
 
             var newSpawnedRoadsFilter = world.Filter<NewGridBuilding>().Inc<Road>().End();
 
-            var refreshPool = world.GetPool<RoadRefreshNeighbourAccess>();
+            var refreshPool = world.GetPool<TriggerRefreshRoadAccess>();
 
             foreach (var newSpawnedRoad in newSpawnedRoadsFilter)
             {

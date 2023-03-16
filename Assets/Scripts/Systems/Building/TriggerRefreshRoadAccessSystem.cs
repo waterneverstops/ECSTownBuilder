@@ -9,7 +9,7 @@ using TownBuilder.Context.LevelMapGrid;
 
 namespace TownBuilder.Systems.Building
 {
-    public class RoadRefreshNeighbourAccessSystem : IEcsInitSystem, IEcsRunSystem
+    public class TriggerRefreshRoadAccessSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
@@ -24,7 +24,7 @@ namespace TownBuilder.Systems.Building
         {
             var world = systems.GetWorld();
 
-            var refreshFilter = world.Filter<RoadRefreshNeighbourAccess>().End();
+            var refreshFilter = world.Filter<TriggerRefreshRoadAccess>().End();
 
             var refreshPool = world.GetPool<RefreshRoadAccess>();
             var cellPool = world.GetPool<Cell>();

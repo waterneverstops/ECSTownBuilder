@@ -26,7 +26,7 @@ namespace TownBuilder.Systems.Building
 
             var destroyFilter = world.Filter<Destroy>().Inc<Road>().End();
 
-            var refreshPool = world.GetPool<RoadRefreshNeighbourAccess>();
+            var refreshPool = world.GetPool<TriggerRefreshRoadAccess>();
 
             foreach (var newSpawnedRoad in destroyFilter)
             {
