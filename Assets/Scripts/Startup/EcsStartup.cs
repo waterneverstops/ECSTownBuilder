@@ -116,6 +116,7 @@ namespace TownBuilder.Startup
                 .Add(new MoveGameObjectSystem())
                 .DelHere<Velocity>()
                 .Add(new SettlerEnterSystem())
+                .Add(new GatherHunterFoodSystem())
                 // Input
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())
