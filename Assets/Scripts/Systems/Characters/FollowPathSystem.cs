@@ -44,6 +44,7 @@ namespace TownBuilder.Systems.Characters
                     
                     currentPoint = path[^1];
                     currentPointPosition = new Vector3(currentPoint.x + PositionOffset, 0f, currentPoint.y + PositionOffset);
+                    distance = Vector3.Distance(currentPosition, currentPointPosition);
                 }
 
                 var heading = currentPointPosition - currentPosition;
