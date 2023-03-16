@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: -6859531101221973635}
   - component: {fileID: -8436626039693455845}
   - component: {fileID: 2558708913573839498}
+  - component: {fileID: 7155518600697331508}
   m_Layer: 0
   m_Name: BaseHouse
   m_TagString: Untagged
@@ -184,6 +185,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsTwoCellRadius: 1
+--- !u!114 &7155518600697331508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4943371885531094842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53dec80067a74e9f899dd30dfa626229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8481714254513045865
 PrefabInstance:
   m_ObjectHideFlags: 0
