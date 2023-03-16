@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using TownBuilder.Components;
 using TownBuilder.Components.Characters;
 using TownBuilder.Components.Grid;
 using TownBuilder.Context;
@@ -25,7 +26,7 @@ namespace TownBuilder.Systems.Characters
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-
+            
             var hunterFilter = world.Filter<Hunter>().Inc<PathEnd>().Inc<ParentStructure>().Exc<HunterWithFood>().End();
 
             var pathPool = world.GetPool<Path>();
