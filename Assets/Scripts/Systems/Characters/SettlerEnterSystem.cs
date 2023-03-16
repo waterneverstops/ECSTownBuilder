@@ -27,7 +27,6 @@ namespace TownBuilder.Systems.Characters
 
             var pathEndFilter = world.Filter<PathEnd>().Inc<Settler>().Inc<GameObjectLink>().End();
 
-            var gameObjectPool = world.GetPool<GameObjectLink>();
             var pathEndPool = world.GetPool<PathEnd>();
             var moveInPool = world.GetPool<MoveSettlerIn>();
             var destroyPool = world.GetPool<Destroy>();

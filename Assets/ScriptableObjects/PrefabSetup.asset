@@ -23,6 +23,8 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0, w: 0}
   SettlerCharacterPrefab: {fileID: 5653533744346443908, guid: db1dfd8bd69987942bc9285dc386c1e2,
     type: 3}
+  ExileCharacterPrefab: {fileID: 6601669983964207692, guid: fb037960f2df0f044afca910d84106ab,
+    type: 3}
   HunterCharacterPrefab: {fileID: 2156925208750943333, guid: e66d4b514c44fa447884f7c05c06e368,
     type: 3}
   BaseHousePrefab: {fileID: 4943371885531094842, guid: cc576c2cdd7e5c24992f46b63fbfde50,

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using TownBuilder.Components;
 using TownBuilder.Components.Characters;
 using TownBuilder.Components.Grid;
 using TownBuilder.Components.Structures;
