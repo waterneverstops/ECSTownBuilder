@@ -98,6 +98,9 @@ namespace TownBuilder.Startup
                 .Add(new SpawnSettlerSystem())
                 .DelHere<SpawnSettlers>()
                 .Add(new PopulateHouseSystem())
+                .Add(new LevelUpHouseSystem())
+                .Add(new RefreshHouseViewSystem())
+                .DelHere<RefreshHouseView>()
                 // Character
                 .Add(new GenerateSettlerPathSystem())
                 .Add(new FollowPathSystem())

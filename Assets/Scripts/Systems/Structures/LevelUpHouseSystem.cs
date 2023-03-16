@@ -6,7 +6,7 @@ using TownBuilder.SO;
 
 namespace TownBuilder.Systems.Structures
 {
-    public class HouseRequestSettlerSystem : IEcsInitSystem, IEcsRunSystem
+    public class LevelUpHouseSystem : IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsCustomInject<HouseConfig> _houseConfigInjection = default;
 
@@ -21,21 +21,25 @@ namespace TownBuilder.Systems.Structures
         {
             var world = systems.GetWorld();
 
-            var houseFilter = world.Filter<House>().Inc<StructureLevel>().Inc<RoadAccess>().Exc<RequestedSettlers>().End();
+            var houseFilter = world.Filter<House>().Inc<StructureLevel>().Inc<RoadAccess>().End();
 
             var housePool = world.GetPool<House>();
             var levelPool = world.GetPool<StructureLevel>();
-            var requestPool = world.GetPool<RequestedSettlers>();
-            
+            var refreshPool = world.GetPool<RefreshHouseView>();
+
             foreach (var houseEntity in houseFilter)
             {
                 var population = housePool.Get(houseEntity).Population;
-                var maxPopulation = _houseConfig.LevelDescriptions[levelPool.Get(houseEntity).Level].MaxCapacity;
+                ref var levelComponent = ref levelPool.Get(houseEntity);
+                var maxPopulation = _houseConfig.LevelDescriptions[levelComponent.Level].MaxCapacity;
 
-                if (population < maxPopulation)
+                if (population >= maxPopulation)
                 {
-                    ref var component = ref requestPool.Add(houseEntity);
-                    component.Amount = maxPopulation - population;
+                    if (levelComponent.Level < _houseConfig.LevelDescriptions.Count - 1)
+                    {
+                        levelComponent.Level++;
+                        refreshPool.Add(houseEntity);
+                    }
                 }
             }
         }

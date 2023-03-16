@@ -1,6 +1,6 @@
 ﻿namespace TownBuilder.Components.Grid
 {
-    public struct BuildingLevel
+    public struct StructureLevel
     {
         public int Level;
     }

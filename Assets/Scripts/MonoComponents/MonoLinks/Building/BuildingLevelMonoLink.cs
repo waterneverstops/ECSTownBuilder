@@ -3,5 +3,5 @@ using TownBuilder.MonoComponents.MonoLinks.Base;
 
 namespace TownBuilder.MonoComponents.MonoLinks.Building
 {
-    public class BuildingLevelMonoLink : MonoLink<BuildingLevel> { }
+    public class BuildingLevelMonoLink : MonoLink<StructureLevel> { }
 }
