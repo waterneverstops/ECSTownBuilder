@@ -94,6 +94,9 @@ namespace TownBuilder.Startup
                 .Add(new SpawnFoodSourceSystem())
                 .Add(new RefreshRoadAccessSystem())
                 .DelHere<RefreshRoadAccess>()
+                .Add(new HunterWorkCountdownSystem())
+                .Add(new HunterWorkSystem())
+                .DelHere<HunterWork>()
                 // Houses
                 .Add(new HouseRequestSettlerSystem())
                 .Add(new SpawnSettlerCountdownSystem())
