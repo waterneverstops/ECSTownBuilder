@@ -41,9 +41,12 @@ namespace TownBuilder.Systems.Characters
                 var endPosition = cellPool.Get(parentPool.Get(hunterEntity).Parent).Position;
 
                 pathPool.Del(hunterEntity);
+
+                var path = new List<Vector2Int>(_gridPathfinder.GetAStarSearchPath(_grid, startPosition, endPosition, PathType.NonStructures, false));
+                if (path.Count == 0) path = new List<Vector2Int>(_gridPathfinder.GetAStarSearchPath(_grid, startPosition, endPosition, PathType.Any));
+                
                 ref var pathComponent = ref pathPool.Add(hunterEntity);
-                pathComponent.Points =
-                    new List<Vector2Int>(_gridPathfinder.GetAStarSearchPath(_grid, startPosition, endPosition, PathType.NonStructures, false));
+                pathComponent.Points = path;
 
                 foodPool.Add(hunterEntity);
                 endPool.Del(hunterEntity);
