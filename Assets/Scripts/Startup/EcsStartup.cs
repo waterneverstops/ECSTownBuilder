@@ -33,6 +33,7 @@ namespace TownBuilder.Startup
         [SerializeField] private PrefabSetup _prefabSetup;
         [SerializeField] private PrefabFactory _prefabFactory;
         [SerializeField] private HouseConfig _houseConfig;
+        [SerializeField] private UIMediator _uiMediator;
 
         private EcsWorld _world;
         private IEcsSystems _systems;
@@ -89,7 +90,7 @@ namespace TownBuilder.Startup
                 .Add(new RoadViewRefreshSystem())
                 .DelHere<RefreshRoadModel>()
                 .Add(new AreaDestroyerSystem())
-                //Structures
+                // Structures
                 .Add(new RefreshRoadAccessSystem())
                 .DelHere<RefreshRoadAccess>()
                 // Houses
@@ -115,6 +116,8 @@ namespace TownBuilder.Startup
                 .Add(new MouseInputSystem())
                 .Add(new ChooseBuildModeSystem())
                 .Add(new ResetBuildModeSystem())
+                // UI
+                .Add(new UpdatePopulationText())
 
 #if UNITY_EDITOR
                 .Add(new EcsWorldDebugSystem())
@@ -126,6 +129,7 @@ namespace TownBuilder.Startup
                     _prefabSetup,
                     _prefabFactory,
                     _houseConfig,
+                    _uiMediator,
                     _levelContext)
                 .InjectUgui(_uguiEmitter)
                 .Init();
