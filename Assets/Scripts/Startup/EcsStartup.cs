@@ -108,6 +108,7 @@ namespace TownBuilder.Startup
                 .DelHere<RefreshHouseView>()
                 // Character
                 .Add(new GenerateSettlerPathSystem())
+                .Add(new GenerateHunterPathToFoodSystem())
                 .Add(new FollowPathSystem())
                 .Add(new LookAtMoveDirectionSystem())
                 .Add(new MoveGameObjectSystem())
