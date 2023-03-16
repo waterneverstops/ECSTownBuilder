@@ -31,4 +31,6 @@ MonoBehaviour:
     type: 3}
   MarketPrefab: {fileID: 7791974360646291964, guid: 4eb9e8171f2026e4db150d876f08df57,
     type: 3}
+  FoodSource: {fileID: 7071776184089646480, guid: 56be874b707a26f48b40001b166bdd4b,
+    type: 3}
   RoadPrefabSetup: {fileID: 11400000, guid: 431692a1d3bb4e84cae4f99c8a3d7c50, type: 2}

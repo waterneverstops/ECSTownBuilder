@@ -91,6 +91,7 @@ namespace TownBuilder.Startup
                 .DelHere<RefreshRoadModel>()
                 .Add(new AreaDestroyerSystem())
                 // Structures
+                .Add(new SpawnFoodSourceSystem())
                 .Add(new RefreshRoadAccessSystem())
                 .DelHere<RefreshRoadAccess>()
                 // Houses

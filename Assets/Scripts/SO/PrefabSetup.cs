@@ -16,6 +16,7 @@ namespace TownBuilder.SO
         
         public GameObject HunterHutPrefab;
         public GameObject MarketPrefab;
+        public GameObject FoodSource;
 
         public RoadPrefabSetup RoadPrefabSetup;
     }
