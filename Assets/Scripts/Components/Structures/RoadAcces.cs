@@ -4,6 +4,6 @@ namespace TownBuilder.Components.Structures
 {
     public struct RoadAccess
     {
-        public List<int> SubsetParents;
+        public List<int> RoadEntities;
     }
 }

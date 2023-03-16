@@ -72,7 +72,6 @@ namespace TownBuilder.Startup
                 .DelHere<SpawnPrefabGrid>()
                 // Road Disjoint Set
                 .Add(new RoadAddToDisjointSetSystem())
-                .Add(new MergeRoadsRefreshAccessSystem())
                 .Add(new MergeRoadsSetSystem())
                 .DelHere<Merge>()
                 // Grid And Building

@@ -36,7 +36,7 @@ namespace TownBuilder.Systems.Structures
 
             foreach (var structureEntity in structureFilter)
             {
-                var parents = new List<int>();
+                var roadEntities = new List<int>();
 
                 var type = typePool.Get(structureEntity).IsTwoCellRadius;
 
@@ -45,23 +45,20 @@ namespace TownBuilder.Systems.Structures
                     {
                         if (!roadPool.Has(entity)) continue;
 
-                        var parent = _disjointSet.FindParent(entity).Entity;
-                        if (parents.Contains(parent)) continue;
+                        if (roadEntities.Contains(entity)) continue;
 
-                        parents.Add(parent);
+                        roadEntities.Add(entity);
                     }
 
-                if (parents.Count == 0)
+                if (roadEntities.Count == 0)
                 {
-                    Debug.Log("Deleted");
                     if (accessPool.Has(structureEntity)) accessPool.Del(structureEntity);
                 }
                 else
                 {
-                    Debug.Log("Updated");
                     if (!accessPool.Has(structureEntity)) accessPool.Add(structureEntity);
                     ref var accessComponent = ref accessPool.Get(structureEntity);
-                    accessComponent.SubsetParents = parents;
+                    accessComponent.RoadEntities = roadEntities;
                 }
             }
         }
