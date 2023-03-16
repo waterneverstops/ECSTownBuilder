@@ -108,6 +108,7 @@ namespace TownBuilder.Startup
                 .DelHere<SpawnSettlers>()
                 .Add(new PopulateHouseSystem())
                 .Add(new LevelUpHouseSystem())
+                .Add(new LevelDownHouseSystem())
                 .Add(new RefreshHouseViewSystem())
                 .DelHere<RefreshHouseView>()
                 // Character
