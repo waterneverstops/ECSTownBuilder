@@ -19,7 +19,7 @@ namespace TownBuilder.Context.LevelMapGrid
         public IReadOnlyList<Vector2Int> Path => _path;
 
         public List<Vector2Int> GetAStarSearchPath(MapGrid grid, Vector2Int startPosition, Vector2Int endPosition,
-            PathType pathType = PathType.NonStructures)
+            PathType pathType = PathType.NonStructures, bool checkLast = true)
         {
             _positionsToCheck.Clear();
             _costDictionary.Clear();
@@ -35,7 +35,9 @@ namespace TownBuilder.Context.LevelMapGrid
             {
                 var current = GetClosestVertex(_positionsToCheck, _priorityDictionary);
                 _positionsToCheck.Remove(current);
-                if (current.Equals(endPosition)) return GeneratePath(_parentsDictionary, current);
+                
+                if (current.Equals(endPosition) || (!checkLast && current.ManhattanDistance(endPosition) < 2f))
+                    return GeneratePath(_parentsDictionary, current);
 
                 foreach (var neighbour in grid.GetPathfindingNeighbours(current, pathType))
                 {

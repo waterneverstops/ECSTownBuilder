@@ -50,7 +50,7 @@ namespace TownBuilder.Systems.Structures
                 {
                     var startPosition = cellPool.Get(hunterEntity).Position;
 
-                    var path = _gridPathfinder.GetAStarSearchPath(_grid, startPosition, endPosition);
+                    var path = _gridPathfinder.GetAStarSearchPath(_grid, startPosition, endPosition, PathType.NonStructures, false);
                     if (path.Count == 0) continue;
 
                     workPool.Add(hunterEntity);
