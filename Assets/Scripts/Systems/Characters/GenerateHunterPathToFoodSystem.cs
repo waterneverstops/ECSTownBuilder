@@ -33,6 +33,7 @@ namespace TownBuilder.Systems.Characters
 
             var pathPool = world.GetPool<Path>();
             var cellPool = world.GetPool<Cell>();
+            var parentPool = world.GetPool<ParentStructure>();
             var gameObjectPool = world.GetPool<GameObjectLink>();
 
             foreach (var foodEntity in foodFilter)
@@ -47,6 +48,12 @@ namespace TownBuilder.Systems.Characters
                     var startPosition = new Vector2Int(Mathf.FloorToInt(hunterPosition.x), Mathf.FloorToInt(hunterPosition.z));
                     
                     pathComponent.Points = new List<Vector2Int>(_gridPathfinder.GetAStarSearchPath(_grid, startPosition, endPosition, PathType.NonStructures, false));
+
+                    if (_grid[startPosition].Unpack(out var packedWorld, out var entity))
+                    {
+                        ref var parentComponent = ref parentPool.Add(hunterEntity);
+                        parentComponent.Parent = entity;
+                    }
                 }
             }
         }

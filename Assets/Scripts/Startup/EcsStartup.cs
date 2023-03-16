@@ -109,6 +109,7 @@ namespace TownBuilder.Startup
                 // Character
                 .Add(new GenerateSettlerPathSystem())
                 .Add(new GenerateHunterPathToFoodSystem())
+                .Add(new GenerateHunterPathToHutSystem())
                 .Add(new FollowPathSystem())
                 .Add(new LookAtMoveDirectionSystem())
                 .Add(new MoveGameObjectSystem())
