@@ -35,9 +35,14 @@ namespace TownBuilder.Context.LevelMapGrid
             {
                 var current = GetClosestVertex(_positionsToCheck, _priorityDictionary);
                 _positionsToCheck.Remove(current);
-                
-                if (current.Equals(endPosition) || (!checkLast && current.ManhattanDistance(endPosition) < 2f))
-                    return GeneratePath(_parentsDictionary, current);
+
+                if (current.Equals(endPosition)) return GeneratePath(_parentsDictionary, current);
+
+                if (!checkLast && current.ManhattanDistance(endPosition) <= 1f)
+                {
+                    _parentsDictionary[endPosition] = current;
+                    return GeneratePath(_parentsDictionary, endPosition);
+                }
 
                 foreach (var neighbour in grid.GetPathfindingNeighbours(current, pathType))
                 {
