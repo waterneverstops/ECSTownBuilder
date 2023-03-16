@@ -24,7 +24,7 @@ namespace TownBuilder.Systems
         {
             var world = systems.GetWorld();
 
-            var destroyFilter = world.Filter<Destroy>().Inc<Cell>().End();
+            var destroyFilter = world.Filter<Destroy>().Inc<Cell>().Exc<Indestructible>().End();
 
             foreach (var destroyEntity in destroyFilter)
             {
