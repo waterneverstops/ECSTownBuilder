@@ -41,6 +41,8 @@ namespace TownBuilder.Systems.Structures
             var cellPool = world.GetPool<Cell>();
             var workPool = world.GetPool<WorkInProgress>();
             var spawnPool = world.GetPool<SpawnPrefab>();
+            var maxStoragePool = world.GetPool<StructureMaxStorage>();
+            var storagePool = world.GetPool<StructureStorage>();
 
             foreach (var foodEntity in foodFilter)
             {
@@ -48,6 +50,8 @@ namespace TownBuilder.Systems.Structures
                 
                 foreach (var hunterEntity in hunterFilter)
                 {
+                    if (storagePool.Get(hunterEntity).Food >= maxStoragePool.Get(hunterEntity).MaxFood) continue; 
+                    
                     var startPosition = cellPool.Get(hunterEntity).Position;
 
                     var path = _gridPathfinder.GetAStarSearchPath(_grid, startPosition, endPosition, PathType.NonStructures, false);
