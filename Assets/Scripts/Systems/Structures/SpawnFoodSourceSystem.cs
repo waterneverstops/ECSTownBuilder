@@ -1,10 +1,7 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using TownBuilder.Components;
-using TownBuilder.Components.Grid;
-using TownBuilder.Components.Structures;
 using TownBuilder.Context;
-using TownBuilder.MonoComponents;
 using TownBuilder.SO;
 using UnityEngine;
 

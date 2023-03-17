@@ -27,6 +27,10 @@ MonoBehaviour:
     type: 3}
   HunterCharacterPrefab: {fileID: 2156925208750943333, guid: e66d4b514c44fa447884f7c05c06e368,
     type: 3}
+  MarketCourierCharacterPrefab: {fileID: 7056527448445479447, guid: bfa7aa28b95c49643b13948a36241ac3,
+    type: 3}
+  MarketTraderCharacterPrefab: {fileID: 4378395209481292154, guid: fbac5cab1d0238e43a55c024fd7c0fe4,
+    type: 3}
   BaseHousePrefab: {fileID: 4943371885531094842, guid: cc576c2cdd7e5c24992f46b63fbfde50,
     type: 3}
   GhostHousePrefab: {fileID: 1375044854968583385, guid: c047f2aeafb9e724299e2c51013552c1,
