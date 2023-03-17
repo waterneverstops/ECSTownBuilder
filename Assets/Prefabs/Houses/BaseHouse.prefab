@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a175f73a81d4cdb9f40d72ca475147e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxFood: 10
+  _maxFood: 15
 --- !u!1001 &8481714254513045865
 PrefabInstance:
   m_ObjectHideFlags: 0
