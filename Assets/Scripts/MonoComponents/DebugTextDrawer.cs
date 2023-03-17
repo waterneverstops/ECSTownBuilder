@@ -25,6 +25,7 @@ namespace TownBuilder.MonoComponents
             });
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             foreach (var order in _drawOrders)
@@ -42,5 +43,6 @@ namespace TownBuilder.MonoComponents
 
             _drawOrders.Clear();
         }
+#endif
     }
 }
