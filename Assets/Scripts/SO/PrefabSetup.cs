@@ -13,6 +13,8 @@ namespace TownBuilder.SO
         public GameObject SettlerCharacterPrefab;
         public GameObject ExileCharacterPrefab;
         public GameObject HunterCharacterPrefab;
+        public GameObject MarketCourierCharacterPrefab;
+        public GameObject MarketTraderCharacterPrefab;
 
         [Header("House")]
         public GameObject BaseHousePrefab;
