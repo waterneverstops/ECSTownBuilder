@@ -14,12 +14,10 @@ namespace TownBuilder.Systems.Structures
     {
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
-        private RoadDisjointSet _disjointSet;
         private MapGrid _grid;
 
         public void Init(IEcsSystems systems)
         {
-            _disjointSet = _levelContextInjection.Value.RoadDisjointSet;
             _grid = _levelContextInjection.Value.MapGrid;
         }
 

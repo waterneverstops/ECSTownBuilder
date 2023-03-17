@@ -1,12 +1,25 @@
 ﻿using System.Collections.Generic;
 using Leopotam.EcsLite;
+using Leopotam.EcsLite.Di;
 using TownBuilder.Components.Grid;
 using TownBuilder.Components.Structures;
+using TownBuilder.Context;
+using TownBuilder.Context.MapRoadDisjointSet;
+using UnityEngine;
 
 namespace TownBuilder.Systems.Structures
 {
-    public class RefreshWorkforceSystem : IEcsRunSystem
+    public class RefreshWorkforceSystem : IEcsInitSystem, IEcsRunSystem
     {
+        private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
+
+        private RoadDisjointSet _disjointSet;
+
+        public void Init(IEcsSystems systems)
+        {
+            _disjointSet = _levelContextInjection.Value.RoadDisjointSet;
+        }
+        
         public void Run(IEcsSystems systems)
         {
             var world = systems.GetWorld();
@@ -22,12 +35,14 @@ namespace TownBuilder.Systems.Structures
 
             foreach (var needEntity in needFilter)
             {
-                var needParents = accessPool.Get(needEntity).RoadEntities;
-
+                var needRoads = accessPool.Get(needEntity).RoadEntities;
+                var needParents = GetParents(needRoads);
+                
                 foreach (var houseEntity in houseFilter)
                 {
-                    var houseParents = accessPool.Get(houseEntity).RoadEntities;
-
+                    var houseRoads = accessPool.Get(houseEntity).RoadEntities;
+                    var houseParents = GetParents(houseRoads);
+                    
                     if (CompareParents(needParents, houseParents))
                     {
                         if (!workPool.Has(needEntity)) workPool.Add(needEntity);
@@ -44,6 +59,19 @@ namespace TownBuilder.Systems.Structures
                     return true;
 
             return false;
+        }
+
+        private List<int> GetParents(List<int> entities)
+        {
+            var parents = new List<int>();
+            
+            foreach (var entity in entities)
+            {
+                var parent = _disjointSet.FindParent(entity).Entity;
+                if (!parents.Contains(parent)) parents.Add(parent);
+            }
+
+            return parents;
         }
     }
 }
