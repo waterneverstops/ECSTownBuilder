@@ -13,7 +13,7 @@ namespace TownBuilder.Systems.Characters
 {
     public class GenerateCourierPathToHunterSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private const int FoodToSendCourier = 400;
+        private const int FoodInCourier = 400;
 
         private readonly EcsCustomInject<LevelContext> _levelContextInjection = default;
 
@@ -41,7 +41,7 @@ namespace TownBuilder.Systems.Characters
 
             foreach (var hunterEntity in hunterFilter)
             {
-                if (storagePool.Get(hunterEntity).Food < FoodToSendCourier) continue;
+                if (storagePool.Get(hunterEntity).Food < FoodInCourier) continue;
                 var endPosition = cellPool.Get(hunterEntity).Position;
 
                 foreach (var courierEntity in courierFilter)
