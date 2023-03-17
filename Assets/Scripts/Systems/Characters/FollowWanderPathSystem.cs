@@ -33,6 +33,7 @@ namespace TownBuilder.Systems.Characters
             var movablePool = world.GetPool<Movable>();
             var endPool = world.GetPool<WanderPathEnd>();
             var velocityPool = world.GetPool<Velocity>();
+            var stepPool = world.GetPool<WanderStep>();
 
             foreach (var pathEntity in pathFilter)
             {
@@ -46,6 +47,8 @@ namespace TownBuilder.Systems.Characters
                 if (distance < PositionThreshold)
                 {
                     pathComponent.StepsLeft--;
+                    ref var stepComponent = ref stepPool.Add(pathEntity);
+                    stepComponent.Position = currentPoint;
                     
                     var neighbours = _grid.GetPathfindingNeighbours(currentPoint, PathType.Road);
                     if (neighbours.Contains(pathComponent.LastStep)) neighbours.Remove(pathComponent.LastStep);

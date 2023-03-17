@@ -135,6 +135,7 @@ namespace TownBuilder.Startup
                 .Add(new GenerateTraderWanderPathSystem())
                 .Add(new GenerateTraderPathToMarketSystem())
                 .Add(new FollowPathSystem())
+                .DelHere<WanderStep>()
                 .Add(new FollowWanderPathSystem())
                 .Add(new LookAtMoveDirectionSystem())
                 .Add(new MoveGameObjectSystem())
@@ -143,6 +144,7 @@ namespace TownBuilder.Startup
                 .Add(new GatherHunterFoodSystem())
                 .Add(new GatherCourierFoodSystem())
                 .Add(new GatherTraderFoodSystem())
+                .Add(new SellTraderFoodSystem())
                 // Input
                 .Add(new CameraInputSystem())
                 .Add(new CameraMovementSystem())

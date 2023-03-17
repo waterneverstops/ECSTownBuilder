@@ -23,13 +23,13 @@ namespace TownBuilder.Systems.Characters
 
             foreach (var traderEntity in traderFilter)
             {
-                var parentEntity = parentPool.Get(traderEntity).Parent; 
-                
+                var parentEntity = parentPool.Get(traderEntity).Parent;
+
                 ref var storageComponent = ref storagePool.Get(parentEntity);
                 storageComponent.Food = Math.Min(storageComponent.Food + traderPool.Get(traderEntity).Food, maxStoragePool.Get(parentEntity).MaxFood);
 
                 workPool.Del(parentEntity);
-                
+
                 destroyPool.Add(traderEntity);
             }
         }
