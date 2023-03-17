@@ -47,4 +47,4 @@ MonoBehaviour:
       Position: {x: 0, y: 0, z: 0}
       Rotation: {x: 0, y: 0, z: 0, w: 0}
     MaxCapacity: 20
-    FoodToUpgrade: 5
+    FoodToUpgrade: 10

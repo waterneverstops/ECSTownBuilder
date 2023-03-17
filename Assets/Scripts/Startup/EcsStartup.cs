@@ -121,6 +121,9 @@ namespace TownBuilder.Startup
                 .Add(new LevelDownHouseSystem())
                 .Add(new RefreshHouseViewSystem())
                 .DelHere<RefreshHouseView>()
+                .Add(new FoodConsumptionCountdownSystem())
+                .Add(new FoodConsumptionSystem())
+                .DelHere<FoodConsumption>()
                 // Character
                 .Add(new GenerateSettlerPathSystem())
                 .Add(new GenerateExilePathSystem())

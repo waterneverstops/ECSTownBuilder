@@ -14,12 +14,15 @@ namespace TownBuilder.Systems.Structures
         private const float SpawnOffset = 0.5f;
         
         private readonly EcsCustomInject<PrefabSetup> _prefabSetupInjection = default;
+        private readonly EcsCustomInject<HouseConfig> _houseConfigInjection = default;
 
         private PrefabSetup _prefabSetup;
+        private HouseConfig _houseConfig;
 
         public void Init(IEcsSystems systems)
         {
             _prefabSetup = _prefabSetupInjection.Value;
+            _houseConfig = _houseConfigInjection.Value;
         }
 
         public void Run(IEcsSystems systems)
@@ -29,17 +32,23 @@ namespace TownBuilder.Systems.Structures
             var spawnFilter = world.Filter<SpawnExiles>().End();
             if (spawnFilter.GetEntitiesCount() == 0) return;
 
-            var houseFilter = world.Filter<House>().Exc<RoadAccess>().End();
+            var houseFilter = world.Filter<House>().End();
 
             var spawnPool = world.GetPool<SpawnPrefab>();
             var housePool = world.GetPool<House>();
             var cellPool = world.GetPool<Cell>();
+            var accessPool = world.GetPool<RoadAccess>();
+            var levelPool = world.GetPool<StructureLevel>();
 
             foreach (var houseEntity in houseFilter)
             {
                 ref var populationComponent = ref housePool.Get(houseEntity);
                 
                 if (populationComponent.Population == 0) continue;
+
+                var levelDescription = _houseConfig.LevelDescriptions[levelPool.Get(houseEntity).Level];
+                if (accessPool.Has(houseEntity) && levelDescription.MaxCapacity >= populationComponent.Population) return;
+                
                 populationComponent.Population--;
 
                 var position = cellPool.Get(houseEntity).Position;

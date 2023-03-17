@@ -26,16 +26,22 @@ namespace TownBuilder.Systems.Structures
             var housePool = world.GetPool<House>();
             var levelPool = world.GetPool<StructureLevel>();
             var refreshPool = world.GetPool<RefreshHouseView>();
+            var storagePool = world.GetPool<StructureStorage>();
 
             foreach (var houseEntity in houseFilter)
             {
-                var population = housePool.Get(houseEntity).Population;
                 ref var levelComponent = ref levelPool.Get(houseEntity);
-
                 if (levelComponent.Level == 0) continue;
-                var prevMaxPopulation = _houseConfig.LevelDescriptions[levelComponent.Level - 1].MaxCapacity;
 
-                if (population < prevMaxPopulation)
+                var prevLevelDescription = _houseConfig.LevelDescriptions[levelComponent.Level - 1];
+
+                var population = housePool.Get(houseEntity).Population;
+                var prevMaxPopulation = prevLevelDescription.MaxCapacity;
+
+                var food = storagePool.Get(houseEntity).Food;
+                var prevNeedFood = prevLevelDescription.FoodToUpgrade;
+
+                if (population < prevMaxPopulation || food < prevNeedFood)
                 {
                     levelComponent.Level--;
                     refreshPool.Add(houseEntity);
