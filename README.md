@@ -1,10 +1,12 @@
 # ECSTownBuilder
 
-[PLAY](https://waterneverstops.itch.io/ecs-town-builder)
+[PLAY WEB](https://waterneverstops.itch.io/ecs-town-builder)
 
 City builder game made with [EcsLite](https://github.com/Leopotam/ecslite).
 
 The gameplay from Pharaoh is taken as a basis. It has most base mechanics of the city builder part except house merging.
+
+3d assets from [Kenney](https://www.kenney.nl/assets?q=3d)
 
 ## Things to improve:
 
@@ -13,3 +15,5 @@ The gameplay from Pharaoh is taken as a basis. It has most base mechanics of the
 - Refreshing workforce access optimization.
 - Move all constants to config.
 - Ghosting in destroy mode.
+
+![Alt text](https://github.com/waterneverstops/ECSTownBuilder/blob/master/Screenshot.png?raw=true)
