@@ -4,7 +4,9 @@
 
 City builder game made with [EcsLite](https://github.com/Leopotam/ecslite).
 
-The gameplay from Pharaoh is taken as a basis. It has most base mechanics of the city builder part except house merging.
+The gameplay from Pharaoh is taken as a basis. It has most base mechanics of its city builder part except house merging.
+
+Road access and building connections evaluation is optimized using Disjoint-set data structure.
 
 3d assets from [Kenney](https://www.kenney.nl/assets?q=3d)
 
